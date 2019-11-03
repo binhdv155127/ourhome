@@ -10,6 +10,6 @@ class RoomType extends Model
 
     public function room()
     {
-        return $this->belongsTo('App\Rooms', 'id_roomtype', 'id');
+        return $this->hasOne('App\Rooms', 'id_roomtype', 'id');
     }
 }

@@ -11,7 +11,7 @@
 
     <!-- Favicon -->
     <link rel="icon" href="theme/img/core-img/favicon.png">
-
+    <base href="{{asset('')}}">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="theme/style.css">
     <style>

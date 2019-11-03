@@ -2,8 +2,7 @@
 
 @section('content')
 <div class="welcome-area">
-    <div class="google-maps breadcrumb-area bg-img bg-overlay-3 wow fadeInUp" data-wow-delay="200ms" style="background-image: url(theme/img/1.jpg);">
-
+    <div class="google-maps bg-img bg-overlay-3 wow fadeInUp" data-wow-delay="200ms" style="background-image: url(theme/img/1.jpg);">
     </div>
 </div>
 @include('theme.layout.finding')
@@ -11,12 +10,13 @@
     <div class="container">
         <div class="row">
             <!-- Single Property Area -->
-            <div class="col-12 col-md-6 col-lg-4">
-                <a href="">
+            @foreach ($new as $item)
+               <div class="col-12 col-md-6 col-lg-4">
+               <a href="room/{{$item->id}}">
                     <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
                         <!-- Property Thumb -->
                         <div class="property-thumb">
-                            <img src="theme/img/bg-img/1.jpg" alt="">
+                            <img src="theme/img/bg-img/{{ $item->photo[0]['name'] }}.jpg" alt="">
                         </div>
 
                         <!-- Property Description -->
@@ -25,267 +25,32 @@
                             <div class="property-title-seller d-flex justify-content-between">
                                 <!-- Title -->
                                 <div class="property-title">
-                                    <h4>số 290 Kim Mã</h4>
-                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> Đống Đa, Hà Nội</p>
+                                    <h4>{{ $item->title }}</h4>
+                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{$item->district->districtName}}, Hà Nội</p>
                                 </div>
                                 <!-- Seller -->
                                 <div class="property-seller">
                                     <p>Người đăng:</p>
-                                    <h6>Bình</h6>
+                                    <h6>{{$item->user->username}}</h6>
                                 </div>
                             </div>
                             <!-- Property Info -->
                             <div class="property-info-area d-flex flex-wrap">
                                 <p>Diện tích: <span>1420 m2</span></p>
-                                <p>Số người: <span>2</span></p>
-                                <p>Loại phòng: <span>CCMN</span></p>
+                                <p>Số người: <span>{{$item->numberpeople}}</span></p>
+                                <p>Loại phòng: <span>{{$item->roomType->type}}</span></p>
                             </div>
                         </div>
 
                         <!-- Property Price -->
                         <div class="property-price">
                             <p class="badge-rent">Giá ở ghép</p>
-                            <p class="price">1,5tr/tháng</p>
+                            <p class="price">{{ number_format($item->price) }} VND/tháng</p>
                         </div>
                     </div>
                 </a>
             </div>
-
-            <!-- Single Property Area -->
-            <div class="col-12 col-md-6 col-lg-4">
-                <a href="">
-                    <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
-                        <!-- Property Thumb -->
-                        <div class="property-thumb">
-                            <img src="theme/img/bg-img/2.jpg" alt="">
-                        </div>
-
-                        <!-- Property Description -->
-                        <div class="property-desc-area">
-                            <!-- Property Title & Seller -->
-                            <div class="property-title-seller d-flex justify-content-between">
-                                <!-- Title -->
-                                <div class="property-title">
-                                    <h4>số 290 Kim Mã</h4>
-                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> Đống Đa, Hà Nội</p>
-                                </div>
-                                <!-- Seller -->
-                                <div class="property-seller">
-                                    <p>Người đăng:</p>
-                                    <h6>Bình</h6>
-                                </div>
-                            </div>
-                            <!-- Property Info -->
-                            <div class="property-info-area d-flex flex-wrap">
-                                <p>Diện tích: <span>1420 m2</span></p>
-                                <p>Số người: <span>2</span></p>
-                                <p>Loại phòng: <span>CCMN</span></p>
-                            </div>
-                        </div>
-
-                        <!-- Property Price -->
-                        <div class="property-price">
-                            <p class="badge-rent">Giá ở ghép</p>
-                            <p class="price">1,5tr/tháng</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Single Property Area -->
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
-                    <!-- Property Thumb -->
-                    <div class="property-thumb">
-                        <img src="theme/img/bg-img/3.jpg" alt="">
-                    </div>
-
-                    <!-- Property Description -->
-                    <div class="property-desc-area">
-                        <!-- Property Title & Seller -->
-                        <div class="property-title-seller d-flex justify-content-between">
-                            <!-- Title -->
-                            <div class="property-title">
-                                <h4>số 290 Kim Mã</h4>
-                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Đống Đa, Hà Nội</p>
-                            </div>
-                            <!-- Seller -->
-                            <div class="property-seller">
-                                <p>Người đăng:</p>
-                                <h6>Bình</h6>
-                            </div>
-                        </div>
-                        <!-- Property Info -->
-                        <div class="property-info-area d-flex flex-wrap">
-                            <p>Diện tích: <span>1420 m2</span></p>
-                            <p>Số người: <span>2</span></p>
-                            <p>Loại phòng: <span>CCMN</span></p>
-                        </div>
-                    </div>
-
-                    <!-- Property Price -->
-                    <div class="property-price">
-                        <p class="badge-rent">Giá ở ghép</p>
-                        <p class="price">1,5tr/tháng</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Property Area -->
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
-                    <!-- Property Thumb -->
-                    <div class="property-thumb">
-                        <img src="theme/img/bg-img/4.jpg" alt="">
-                    </div>
-
-                    <!-- Property Description -->
-                    <div class="property-desc-area">
-                        <!-- Property Title & Seller -->
-                        <div class="property-title-seller d-flex justify-content-between">
-                            <!-- Title -->
-                            <div class="property-title">
-                                <h4>số 290 Kim Mã</h4>
-                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Đống Đa, Hà Nội</p>
-                            </div>
-                            <!-- Seller -->
-                            <div class="property-seller">
-                                <p>Người đăng:</p>
-                                <h6>Bình</h6>
-                            </div>
-                        </div>
-                        <!-- Property Info -->
-                        <div class="property-info-area d-flex flex-wrap">
-                            <p>Diện tích: <span>1420 m2</span></p>
-                            <p>Số người: <span>2</span></p>
-                            <p>Loại phòng: <span>CCMN</span></p>
-                        </div>
-                    </div>
-
-                    <!-- Property Price -->
-                    <div class="property-price">
-                        <p class="badge-rent">Giá ở ghép</p>
-                        <p class="price">1,5tr/tháng</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Property Area -->
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
-                    <!-- Property Thumb -->
-                    <div class="property-thumb">
-                        <img src="theme/img/bg-img/5.jpg" alt="">
-                    </div>
-
-                    <!-- Property Description -->
-                    <div class="property-desc-area">
-                        <!-- Property Title & Seller -->
-                        <div class="property-title-seller d-flex justify-content-between">
-                            <!-- Title -->
-                            <div class="property-title">
-                                <h4>số 290 Kim Mã</h4>
-                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Đống Đa, Hà Nội</p>
-                            </div>
-                            <!-- Seller -->
-                            <div class="property-seller">
-                                <p>Người đăng:</p>
-                                <h6>Bình</h6>
-                            </div>
-                        </div>
-                        <!-- Property Info -->
-                        <div class="property-info-area d-flex flex-wrap">
-                            <p>Diện tích: <span>1420 m2</span></p>
-                            <p>Số người: <span>2</span></p>
-                            <p>Loại phòng: <span>CCMN</span></p>
-                        </div>
-                    </div>
-
-                    <!-- Property Price -->
-                    <div class="property-price">
-                        <p class="badge-rent">Giá ở ghép</p>
-                        <p class="price">1,5tr/tháng</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Property Area -->
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
-                    <!-- Property Thumb -->
-                    <div class="property-thumb">
-                        <img src="theme/img/bg-img/6.jpg" alt="">
-                    </div>
-
-                    <!-- Property Description -->
-                    <div class="property-desc-area">
-                        <!-- Property Title & Seller -->
-                        <div class="property-title-seller d-flex justify-content-between">
-                            <!-- Title -->
-                            <div class="property-title">
-                                <h4>số 290 Kim Mã</h4>
-                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Đống Đa, Hà Nội</p>
-                            </div>
-                            <!-- Seller -->
-                            <div class="property-seller">
-                                <p>Người đăng:</p>
-                                <h6>Bình</h6>
-                            </div>
-                        </div>
-                        <!-- Property Info -->
-                        <div class="property-info-area d-flex flex-wrap">
-                            <p>Diện tích: <span>1420 m2</span></p>
-                            <p>Số người: <span>2</span></p>
-                            <p>Loại phòng: <span>CCMN</span></p>
-                        </div>
-                    </div>
-
-                    <!-- Property Price -->
-                    <div class="property-price">
-                        <p class="badge-rent">Giá ở ghép</p>
-                        <p class="price">1,5tr/tháng</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Property Area -->
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
-                    <!-- Property Thumb -->
-                    <div class="property-thumb">
-                        <img src="theme/img/bg-img/7.jpg" alt="">
-                    </div>
-
-                    <!-- Property Description -->
-                    <div class="property-desc-area">
-                        <!-- Property Title & Seller -->
-                        <div class="property-title-seller d-flex justify-content-between">
-                            <!-- Title -->
-                            <div class="property-title">
-                                <h4>số 290 Kim Mã</h4>
-                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Đống Đa, Hà Nội</p>
-                            </div>
-                            <!-- Seller -->
-                            <div class="property-seller">
-                                <p>Người đăng:</p>
-                                <h6>Bình</h6>
-                            </div>
-                        </div>
-                        <!-- Property Info -->
-                        <div class="property-info-area d-flex flex-wrap">
-                            <p>Diện tích: <span>1420 m2</span></p>
-                            <p>Số người: <span>2</span></p>
-                            <p>Loại phòng: <span>CCMN</span></p>
-                        </div>
-                    </div>
-
-                    <!-- Property Price -->
-                    <div class="property-price">
-                        <p class="badge-rent">Giá ở ghép</p>
-                        <p class="price">1,5tr/tháng</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
 
         <div class="row">

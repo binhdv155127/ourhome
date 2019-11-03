@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('theme.detail');
-});
+Route::get('/','homeController@index');
+Route::get('room/{id}','pageDetailController@index');

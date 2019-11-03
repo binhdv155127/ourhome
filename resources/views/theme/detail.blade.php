@@ -21,7 +21,7 @@
     <!-- **** Breadcrumb Area End **** -->
 
     <div class="titleheader" style="padding: 50px;">
-        <h2>CẦN BẠN NAM Ở GHÉP NHÀ NGUYÊN CĂN</h2>
+    <h2>{{$detail->title}}</h2>
         <hr style="display: inline-block;
         width: 100px;
         border: 0;
@@ -37,25 +37,26 @@
                 <!-- Properties Slider -->
                 <div id="property-thumb-silde" class="carousel slide wow fadeInUp" data-wow-delay="200ms" data-ride="carousel">
                     <ol class="carousel-indicators">
-                        <li data-target="#property-thumb-silde" data-slide-to="0" class="active" style="background-image: url(img/bg-img/64.jpg);"></li>
-                        <li data-target="#property-thumb-silde" data-slide-to="1" style="background-image: url(img/bg-img/65.jpg);"></li>
-                        <li data-target="#property-thumb-silde" data-slide-to="2" style="background-image: url(img/bg-img/66.jpg);"></li>
-                        <li data-target="#property-thumb-silde" data-slide-to="3" style="background-image: url(img/bg-img/67.jpg);"></li>
+                        <li data-target="#property-thumb-silde" data-slide-to="0" class="active" style="background-image: url(theme/img/bg-img/{{$photos->name}}.jpg);"></li>
+                        @foreach ($photos1 as $key=>$item)
+                          @if ($key>0)
+                          <li data-target="#property-thumb-silde" data-slide-to="$key" style="background-image: url(theme/img/bg-img/{{$item->name}}.jpg);"></li>
+                          @endif
+                        @endforeach
                     </ol>
 
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="img/bg-img/64.jpg" class="d-block w-100" alt="...">
+                            <img src="theme/img/bg-img/{{$photos->name}}.jpg" class="d-block w-100" alt="...">
                         </div>
-                        <div class="carousel-item">
-                            <img src="img/bg-img/65.jpg" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="img/bg-img/66.jpg" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="img/bg-img/67.jpg" class="d-block w-100" alt="...">
-                        </div>
+                        @foreach ($photos1 as $key=>$item)
+                          @if ($key>0)
+                          <div class="carousel-item">
+                                <img src="theme/img/bg-img/{{$item->name}}.jpg" class="d-block w-100" alt="...">
+                            </div>
+                          @endif
+                        @endforeach
+
                     </div>
                 </div>
             </div>
@@ -63,19 +64,18 @@
             <!-- Properties Content Area -->
             <div class="properties-content-area wow fadeInUp" data-wow-delay="200ms">
                 <div class="properties-content-info">
-                    <h2>Ở GHÉP NHÀ NGUYÊN CĂN</h2>
+                <h2>Ở ghép {{$detail->roomType->type}}</h2>
                     <div class="properties-location">
-                        <p><i class="fa fa-map-marker" aria-hidden="true"></i> 290 kim mã, ba đình</p>
-                        <p><i class="fa fa-map-marker" aria-hidden="true"></i> nhà nguyên căn</p>
+                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{$detail->area}}</p>
+                        <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{$detail->roomType->type}}</p>
                     </div>
-                    <h4 class="properties-rate">1.500.000VND <span>/ month</span></h4>
+                    <h4 class="properties-rate">{{number_format($detail->price)}} VND <span>/ tháng</span></h4>
                     <p>GẦN SIÊU THỊ , CHỢ - QUÁN ĂN TRONG BÁN KÍNH 100M</p>
                     <!-- Properties Info -->
                     <div class="properties-info">
                         <p>diện tích: <span>13 m2</span></p>
-                        <p>loại phòng: <span>CCMN</span></p>
-                        <p>Kiểu phòng: <span>nhà riêng</span></p>
-                        <p>số người: <span>02</span></p>
+                        <p>loại phòng: <span>{{$detail->roomType->type}}</span></p>
+                        <p>số người: <span>{{$detail->numberpeople}}</span></p>
                     </div>
                 </div>
             </div>
@@ -153,14 +153,11 @@
                         <div class="search-location-area mb-80 wow fadeInUp" data-wow-delay="200ms">
                             <h4 class="mb-30">Chỉ dẫn</h4>
                             <!-- Location Maps -->
-                            <div class="loction-map">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19892.026971487212!2d-0.19247374135275525!3d51.4489138369289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C+UK!5e0!3m2!1sen!2sbd!4v1551753138954" allowfullscreen></iframe>
+                            <div id="map-detail">
+
                             </div>
-
+                            <?php var_dump($detail->map) ?>
                         </div>
-
-
-
                         <!-- Leave A Reply -->
                         <div class="rehomes-comment-form mb-80 wow fadeInUp" data-wow-delay="200ms">
                             <h4 class="mb-30">Liên quan</h4>
@@ -361,6 +358,73 @@
                   </div>
         </div>
       </div>
+      <script type="text/javascript">
+        $(document).ready(function() {
+            var slider = $('.pgwSlider').pgwSlider();
+            slider.previousSlide();
+        });
+    </script>
+        <script>
+           var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map-detail'), {
+                center: {lat: 16.067011, lng: 108.214388},
+                zoom: 15,
+                draggable: true
+            });
+            /* Get latlng vị trí phòng trọ */
+            <?php
+            $arrmergeLatln = array();
+
+            $arrlatlng = json_decode($detail->map,true);
+
+            $arrmergeLatln[] = ["lat"=> $arrlatlng[0],"lng"=> $arrlatlng[1],"title"=>$detail->title,"address"=> $detail->area,"phone"=> $detail->price,"slug"=>$detail->status];
+            $js_array = json_encode($arrmergeLatln);
+            echo "var javascript_array = ". $js_array . ";\n";
+
+            ?>
+            /* ---------------  */
+
+            for (i in javascript_array){
+                var data = javascript_array[i];
+                var latlng =  new google.maps.LatLng(data.lat,data.lng);
+                var phongtro = new google.maps.Marker({
+                    position:  latlng,
+                    map: map,
+                    title: data.title,
+                    icon: "theme/img/bg-img/1.jpg",
+                    content: 'dgfdgfdg'
+                });
+                var infowindow = new google.maps.InfoWindow();
+                (function(phongtro, data){
+                    var content = '<div id="iw-container">' +
+                    '<a href="phongtro/'+data.slug+'"><div class="iw-title">' + data.title +'</div></a>' +
+                    '<p><i class="fas fa-map-marker" style="color:#003352"></i> '+ data.address +'<br>'+
+                    '<br>Phone. ' +data.phone +'</div>';
+                    infowindow.setContent(content);
+                    infowindow.open(map, phongtro);
+                    google.maps.event.addListener(phongtro, "click", function(e){
+
+                        infowindow.setContent(content);
+                        infowindow.open(map, phongtro);
+                      // alert(data.title);
+                  });
+                })(phongtro,data);
+
+            }
+            google.maps.event.addListener(map, 'mousemove', function (e) {
+                document.getElementById("flat").innerHTML = e.latLng.lat().toFixed(6);
+                document.getElementById("lng").innerHTML = e.latLng.lng().toFixed(6);
+
+            });
+
+
+        }
+        </script>
 
 @endsection
 
+@section('script')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzlVX517mZWArHv4Dt3_JVG0aPmbSE5mE&callback=initMap"
+    async defer></script>
+@endsection

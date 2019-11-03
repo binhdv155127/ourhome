@@ -30,7 +30,7 @@ class Rooms extends Model
 
     public function roomType()
     {
-        return $this->hasone('App\RoomType', 'id_roomtype', 'id');
+        return $this->belongsTo('App\RoomType', 'id_roomtype', 'id');
     }
 
     public function photo()
