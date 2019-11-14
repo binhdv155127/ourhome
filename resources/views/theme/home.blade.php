@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="welcome-area">
-    <div class="google-maps bg-img bg-overlay-3 wow fadeInUp" data-wow-delay="200ms" style="background-image: url(theme/img/1.jpg);">
+    <div class="google-maps bg-img bg-overlay-3 wow fadeInUp" data-wow-delay="200ms" style="background-image: url(theme/img/bg-img/company_bg.jpg); margin-top: -350px;">
     </div>
 </div>
 @include('theme.layout.finding')
@@ -38,8 +38,15 @@
                             <div class="property-info-area d-flex flex-wrap">
                                 <p>Diện tích: <span>1420 m2</span></p>
                                 <p>Số người: <span>{{$item->numberpeople}}</span></p>
-                                <p>Loại phòng: <span>{{$item->roomType->type}}</span></p>
                             </div>
+                            <p>Loại phòng: <span>{{$item->roomType->type}}</span></p>
+                            <p>Đánh giá: <span>
+                                    <i class="fa fa-star" aria-hidden="true" style="margin-left: 50px;color: #ffc107;"></i>
+                                    <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
+                                    <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
+                                    <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true" ></i>
+                                </span></p>
                         </div>
 
                         <!-- Property Price -->
@@ -53,27 +60,24 @@
             @endforeach
         </div>
 
-        <div class="row">
-            <!-- Pagination and Page Counter Area -->
-            <div class="col-12">
-                <div class="rehomes-pagination-counter mt-15 d-flex flex-wrap justify-content-between align-items-center wow fadeInUp" data-wow-delay="200ms">
-                    <!-- Pagination -->
-                    <nav class="rehomes-pagination">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link active" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-                        </ul>
-                    </nav>
-
-                    <!-- Page Counter -->
-                    <div class="page-counter">
-                        <p>Page <span>1</span> of <span>60</span> results</p>
-                    </div>
+        <div class="container">
+                <div class="row">
+                        {{$new->links()}}
                 </div>
-            </div>
         </div>
+
     </div>
 </section>
+@endsection
+@section('script')
+    <script>
+         $(document).ready(function(){
+             $("#district").change(function(){
+                 var idDistrict = $(this).val();
+                 $.get("ward/"+idDistrict,function(data){
+                    $('#ward').html(data);
+                 });
+             });
+         });
+    </script>
 @endsection

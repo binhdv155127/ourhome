@@ -18,6 +18,9 @@ class CreateRoomCaresTable extends Migration
             $table->integer('id_user');
             $table->integer('id_room');
             $table->string('status');
+            $table->string('title');
+            $table->string('time');
+            $table->string('content');
         });
     }
 

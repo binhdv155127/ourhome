@@ -64,6 +64,10 @@
     <script src="theme/js/rehomes.bundle.js"></script>
     <!-- Active -->
     <script src="theme/js/default-assets/active.js"></script>
+    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+       CKEDITOR.replace('demo');
+    </script>
 
     @yield('script')
 </body>

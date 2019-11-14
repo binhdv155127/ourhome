@@ -13,6 +13,11 @@ class RoomUsed extends Model
         return $this->hasmany('App\RateRoom', 'id_roomused', 'id');
     }
 
+    public function userRate()
+    {
+        return $this->hasmany('App\rate_users', 'id_roomused', 'id');
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User', 'id_user', 'id');

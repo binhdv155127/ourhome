@@ -16,7 +16,8 @@ class CreateRateRoomsTable extends Migration
         Schema::create('rate_rooms', function (Blueprint $table) {
             $table->Increments('id');
             $table->integer('id_roomused');
-            $table->string('content');
+            $table->integer('point');
+            $table->string('content')->nullable();
         });
     }
 

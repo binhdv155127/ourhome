@@ -15,7 +15,15 @@ class homeController extends Controller
      */
     public function index()
     {
-        $news = Rooms::all();
+        $news = Rooms::paginate(5);
         return view('theme.home',['new'=>$news]);
+    }
+
+    public function ajax($idDistrict)
+    {
+        $wardAjax=Wards::where('id_district',$idDistrict)->get();
+        foreach ($wardAjax as $wardAjaxs) {
+            echo "<option value='".$wardAjaxs->id."'>".$wardAjaxs->wardName."</option>";
+        }
     }
 }

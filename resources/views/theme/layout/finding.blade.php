@@ -1,80 +1,58 @@
 <div class="rehomes-search-form-area">
     <div class="container">
         <div class="rehomes-search-form">
-            <form action="#" method="post">
+            <form action="search" method="get">
+                @csrf
                 <div class="row">
                     <div class="col-12 col-lg-10">
                         <div class="row">
-                            <!-- <div class="col-12 col-md-6 col-lg-3">
-                                <select name="location" id="location" class="form-control">
-                                    <option value="location">Location</option>
-                                    <option value="armenia">Armenia</option>
-                                    <option value="argentina">Argentina</option>
-                                    <option value="australia">Australia</option>
-                                    <option value="belgium">Belgium</option>
-                                    <option value="botswana">Botswana</option>
-                                </select>
-                            </div> -->
                             <div class="col-12 col-md-6 col-lg-3">
                                 <select name="types" id="types" class="form-control">
-                                    <option value="all-types">Loại phòng</option>
-                                    <option value="commercial">Chung cư mini</option>
-                                    <option value="office">Nhà riêng</option>
-                                    <option value="villa">Dãy trọ</option>
+                                    <option value="">Loại phòng</option>
+                                    @foreach ($Type_room as $item)
+                                        <option value="{{$item->id}}">{{$item->type}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-12 col-md-6 col-lg-3">
-                                <select name="city" id="city" class="form-control">
-                                    <option value="01">Thành Phố</option>
-                                    <option value="02">Hà Nội</option>
-                                    <option value="03">Hồ chí minh</option>
+                                <select name="district" id="district" class="form-control">
+                                    <option value="">Quận</option>
+                                    @foreach ($district_share as $item)
+                                        <option value="{{$item->id}}">{{$item->districtName}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3" id="ward1">
+                                <select name="ward" id="ward" class="form-control">
+                                    <option value="">Phố</option>
                                 </select>
                             </div>
                             <div class="col-12 col-md-6 col-lg-3">
-                                <select name="all" id="all" class="form-control">
-                                    <option value="01">Quận</option>
-                                    <option value="02">Thanh Xuân</option>
-                                    <option value="03">Hai Bà Trưng</option>
-                                    <option value="04">Ba Đình</option>
-                                </select>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <select name="bedrooms" id="bedrooms" class="form-control">
-                                    <option value="bedrooms">Số người ở ghép</option>
+                                <select name="people" id="people" class="form-control">
+                                    <option value="">Số người ở ghép</option>
                                     <option value="01">01</option>
                                     <option value="02">02</option>
                                     <option value="03">03</option>
                                     <option value="04">04</option>
-                                    <option value="05">05</option>
-                                    <option value="06">06</option>
                                 </select>
                             </div>
                             <div class="col-12 col-md-6 col-lg-3">
-                                <select name="bathroom" id="bathroom" class="form-control">
-                                    <option value="Bathroom">kiểu phòng</option>
-                                    <option value="01">Khép kín</option>
-                                    <option value="02">không khép kín</option>
+                                <select name="price" id="price" class="form-control">
+                                    <option value="">Giá Phòng</option>
+                                    <option value="500000-1000000">500,000 - 1,000,000 VND</option>
+                                    <option value="1000001-2000000">1,000,001 - 2,000,000 VND</option>
+                                    <option value="2000001-3000000">2,000,001 - 3,000,000 VND</option>
+                                    <option value="3000001-4000000">3,000,001 - 4,000,000 VND</option>
                                 </select>
                             </div>
                             <div class="col-12 col-md-6 col-lg-3">
-                                <div class="slider-range mb-15">
-                                    <div class="range-price text-white">Giá [30000 - 150000]VND</div>
-                                    <div class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-min="0" data-max="200000" data-unit="VND" data-value-min="30000" data-value-max="150000" data-label-result="Price">
-                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="slider-range mb-15">
-                                    <div class="range-size text-white">Diện Tích [9762 - 72063]m2</div>
-                                    <div data-min="0" data-max="98623" data-unit="m2" class="slider-range-size ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="9762" data-value-max="72063" data-label-result="Size">
-                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                    </div>
-                                </div>
+                                <select name="area" id="area" class="form-control">
+                                    <option value="">Diện Tích</option>
+                                    <option value="5-15">5 - 15 m2</option>
+                                    <option value="16-25">16 - 25 m2</option>
+                                    <option value="26-35">26 - 35 m2</option>
+                                    <option value="36-45">36 - 45 m2</option>
+                                </select>
                             </div>
                         </div>
                     </div>

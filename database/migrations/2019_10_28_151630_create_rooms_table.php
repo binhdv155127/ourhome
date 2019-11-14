@@ -21,12 +21,17 @@ class CreateRoomsTable extends Migration
             $table->string('numberpeople');
             $table->string('status');
             $table->string('discription');
-            $table->string('map');
+            $table->string('lat')->nullable();
+            $table->string('lng')->nullable();
+            $table->string('slugs');
+            $table->string('acreage');
             $table->integer('id_user');
             $table->integer('id_roomtype');
             $table->integer('id_province');
             $table->integer('id_district');
             $table->integer('id_ward');
+            $table->integer('accept');
+            $table->integer('deleted_at');
             $table->timestamps();
         });
     }
