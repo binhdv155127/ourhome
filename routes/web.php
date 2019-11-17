@@ -24,9 +24,12 @@ Route::get('person/{id}','personController@user');
 Route::get('rate/{id}','personController@rate');
 Route::get('rateroom/{id}','pageDetailController@rate');
 Route::get('modifyinfor/{id}','personController@update');
-Route::get('user/news','personController@new');
+
 Route::get('user/meeting/{id}','personController@meet');
+
 Route::get('login','personController@login');
 Route::post('login','personController@postlogin');
+Route::get('logout','personController@logOut');
 
-
+Route::get('user/news','postNewsController@new');
+Route::post('user/news','postNewsController@postnew');

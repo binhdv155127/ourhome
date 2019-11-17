@@ -31,17 +31,19 @@ class personController extends Controller
         return view('theme.modifyinfor');
     }
 
-    public function new()
-    {
-        return view('theme.news');
-    }
+
     public function meet()
     {
         return view('theme.meeting');
     }
     public function login()
     {
-        return view('theme.login');
+        if(Auth::check()){
+            return redirect('/');
+        }else{
+            return view('theme.login');
+        }
+
     }
     public function postlogin(Request $request)
     {
@@ -57,10 +59,16 @@ class personController extends Controller
                 'password.max'=>' password không được lớn hơn 32 kt',
             ]);
 
+
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
             return redirect('/');
         }else{
             return redirect('login')->with('thongbao','dang nhập ko thành công xin kiểm tra lại');
         }
+    }
+
+    public function logOut(){
+        Auth::logout();
+        return redirect('login');
     }
 }

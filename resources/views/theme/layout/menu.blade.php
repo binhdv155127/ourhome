@@ -38,15 +38,27 @@
                                 <li><a href="person/1">trang cá nhân</a></li>
                                 <li><a href="user/news"><h6 style="color: #fb1b04;">Đăng tin ngay!</h6> </a></li>
                             </ul>
+                            @if (Auth::user())
+                            <ul id="nav" style="margin-top: -10px;">
+                                <li><a href="#">Xin chào! {{ Auth::user()->name }}</a>
+                                    <ul class="dropdown">
+                                        <li class="active"><a href="">Thông tin chi tiết</a></li>
+                                        <li><a href="">Đăng tin</a></li>
+                                        <li><a href="logout">Thoát</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            @else
 
                             <!-- Contact btn -->
                             <div class="contact-btn mt-3 mt-lg-0 ml-3 ml-lg-5" style="margin-left: 0px !important;">
-                                <a href="#">Đăng Kí</a>
+                                <a href="register">Đăng Kí</a>
                             </div>
                             <!-- Contact btn -->
                             <div class="contact-btn mt-3 mt-lg-0 ml-3 ml-lg-5" style="margin-left: 10px !important;">
                                 <a href="login">Đăng Nhập</a>
                             </div>
+                            @endif
                         </div>
                         <!-- Nav End -->
                     </div>

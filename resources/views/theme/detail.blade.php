@@ -141,7 +141,7 @@
                         <div class="search-location-area mb-80 wow fadeInUp" data-wow-delay="200ms">
                             <h4 class="mb-30">Chỉ dẫn</h4>
                             <!-- Location Maps -->
-                            <div class="loction-map">
+                            <div class="loction-map" id="map-detail">
                                 {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19892.026971487212!2d-0.19247374135275525!3d51.4489138369289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C+UK!5e0!3m2!1sen!2sbd!4v1551753138954" allowfullscreen></iframe> --}}
                             </div>
                         </div>
@@ -374,4 +374,66 @@
             </div>
         </div>
 @endsection
+@section('script')
+<script>
 
+	var map;
+	function initMap() {
+		map = new google.maps.Map(document.getElementById('map-detail'), {
+			center: {lat: 16.067011, lng: 108.214388},
+			zoom: 15,
+			draggable: true
+		});
+		/* Get latlng vị trí phòng trọ */
+		<?php
+		$arrmergeLatln = array();
+
+		$arrlatlng = json_decode($detail->latlng,true);
+
+		$arrmergeLatln[] = ["lat"=> $arrlatlng[0],"lng"=> $arrlatlng[1],"title"=>$detail->title,"address"=> $detail->area,"phone"=> $detail->user->phonenumber,"slug"=>$detail->slug];
+		$js_array = json_encode($arrmergeLatln);
+		echo "var javascript_array = ". $js_array . ";\n";
+
+		?>
+		/* ---------------  */
+
+		for (i in javascript_array){
+			var data = javascript_array[i];
+			var latlng =  new google.maps.LatLng(data.lat,data.lng);
+			var phongtro = new google.maps.Marker({
+				position:  latlng,
+				map: map,
+				title: data.title,
+				icon: "theme/img/core-img/gps.png",
+				content: 'dgfdgfdg'
+			});
+			var infowindow = new google.maps.InfoWindow();
+			(function(phongtro, data){
+				var content = '<div id="iw-container" >' +
+				'<a href="room/'+data.slug+'"><div class="iw-title" style="background: #003352;color: #fff;padding: 6px auto;text-align: center;font-weight: bold;padding: 5px 5px;margin-bottom: 5px;">' + data.title +'</div></a>' +
+				'<p><i class="fa fa-map-marker" style="color:#003352"></i> '+ data.address +', Hà Nội'+'<br>'+
+				'<br>Phone. ' +data.phone +'</div>';
+				infowindow.setContent(content);
+				infowindow.open(map, phongtro);
+				google.maps.event.addListener(phongtro, "click", function(e){
+
+					infowindow.setContent(content);
+					infowindow.open(map, phongtro);
+                  // alert(data.title);
+              });
+			})(phongtro,data);
+
+		}
+		google.maps.event.addListener(map, 'mousemove', function (e) {
+			document.getElementById("flat").innerHTML = e.latLng.lat().toFixed(6);
+			document.getElementById("lng").innerHTML = e.latLng.lng().toFixed(6);
+
+		});
+
+
+	}
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzlVX517mZWArHv4Dt3_JVG0aPmbSE5mE&callback=initMap"
+async defer></script>
+@endsection

@@ -17,6 +17,7 @@ class pageDetailController extends Controller
     public function index($id)
     {
         $detail = Rooms::find($id);
+
         $photos = Photo::where('id_room',$id)->first();
         $photos1 = Photo::where('id_room',$id)->get();
         $recent = Rooms::orderBy('id','desc')->take(3)->get();

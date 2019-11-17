@@ -39,27 +39,22 @@
 
                     <div class="panel-body">
 
-                    <form action="nguoidung" method="POST">
+                    <form action="user/news" method="POST">
                         @csrf
                         <div>
                             <label>Tiêu đề bài đăng:</label>
                             <input type="text" class="form-control" placeholder="Tiêu đề" name="name" value="">
                         </div>
                         <br>
-                        <div>
-                            <label>Địa chỉ phòng trọ:</label>
-                            <input type="text" class="form-control" placeholder="địa chỉ" name="email"  value="">
+                        <div class="form-group">
+							<label>Địa chỉ phòng trọ:</label> Bạn có thể nhập hoặc chọn ví trí trên bản đồ
+							<input type="text" id="location-text-box" name="txtaddress" class="form-control" value="" />
+                            <p><i class="fa fa-bell"></i> Nếu địa chỉ hiển thị bên bản đồ không đúng bạn có thể điều chỉnh bằng cách kéo điểm màu xanh trên bản đồ tới vị trí chính xác.</p>
+                            <input type="hidden" id="txtaddress" name="txtaddress" value=""  class="form-control"  />
+                            <input type="hidden" id="txtlat" value="" name="txtlat"  class="form-control"  />
+                            <input type="hidden" id="txtlng"  value="" name="txtlng" class="form-control" />
                         </div>
-                        <br>
-                        <div>
-                            <div class="search-location-area mb-80 wow fadeInUp" data-wow-delay="200ms">
-                                    <label>Map:</label>
-                                <!-- Location Maps -->
-                                <div class="loction-map">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19892.026971487212!2d-0.19247374135275525!3d51.4489138369289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C+UK!5e0!3m2!1sen!2sbd!4v1551753138954" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                        </div>
+                        <div id="map-canvas" style="width: auto; height: 400px;"></div>
                         <div>
                             <label>Giá:</label>
                             <input type="number" class="form-control" placeholder="Giá phòng" name="email"  value="">
@@ -112,9 +107,11 @@
                         </div>
                         <br>
                         <br>
-                        <div>
-                            <label>Ảnh phòng</label>
-                            <input type="file" class="form-control password" name="passwordAgain" >
+                        <div class="form-group">
+                            <label for="comment">Thêm hình ảnh:</label>
+                            <div class="file-loading">
+                                <input id="file-5" type="file" class="file" name="hinhanh[]" multiple data-preview-file-type="any" data-upload-url="#">
+                            </div>
                         </div>
                         <br>
                         <div>
@@ -131,4 +128,190 @@
     <!-- end slide -->
 </div>
 <!-- end Page Content -->
+@endsection
+@section('script')
+<script type="text/javascript">
+    $('#file-5').fileinput({
+        theme: 'fa',
+        language: 'vi',
+        showUpload: false,
+        allowedFileExtensions: ['jpg', 'png', 'gif']
+    });
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzlVX517mZWArHv4Dt3_JVG0aPmbSE5mE&callback=initialize&libraries=geometry,places" async defer></script>
+<script>
+  var map;
+  var marker;
+  function initialize() {
+    var mapOptions = {
+      center: {lat: 16.070372, lng: 108.214388},
+      zoom: 12
+    };
+    map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+  // Get GEOLOCATION
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = new google.maps.LatLng(position.coords.latitude,
+        position.coords.longitude);
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({
+        'latLng': pos
+      }, function (results, status) {
+        if (status ==
+          google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            console.log(results[0].formatted_address);
+          } else {
+            console.log('No results found');
+          }
+        } else {
+          console.log('Geocoder failed due to: ' + status);
+        }
+      });
+      map.setCenter(pos);
+      marker = new google.maps.Marker({
+        position: pos,
+        map: map,
+        draggable: true
+      });
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleNoGeolocation(false);
+  }
+
+  function handleNoGeolocation(errorFlag) {
+    if (errorFlag) {
+      var content = 'Error: The Geolocation service failed.';
+    } else {
+      var content = 'Error: Your browser doesn\'t support geolocation.';
+    }
+
+    var options = {
+      map: map,
+      zoom: 19,
+      position: new google.maps.LatLng(16.070372,108.214388),
+      content: content
+    };
+
+    map.setCenter(options.position);
+    marker = new google.maps.Marker({
+      position: options.position,
+      map: map,
+      zoom: 19,
+      icon: "theme/img/core-img/gps.png",
+      draggable: true
+    });
+    /* Dragend Marker */
+    google.maps.event.addListener(marker, 'dragend', function() {
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            $('#location-text-box').val(results[0].formatted_address);
+            $('#txtaddress').val(results[0].formatted_address);
+            $('#txtlat').val(marker.getPosition().lat());
+            $('#txtlng').val(marker.getPosition().lng());
+            infowindow.setContent(results[0].formatted_address);
+            infowindow.open(map, marker);
+          }
+        }
+      });
+    });
+    /* End Dragend */
+
+  }
+
+  // get places auto-complete when user type in location-text-box
+  var input = /** @type {HTMLInputElement} */
+  (
+    document.getElementById('location-text-box'));
+
+
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+
+  var infowindow = new google.maps.InfoWindow();
+  marker = new google.maps.Marker({
+    map: map,
+    icon: "theme/img/core-img/gps.png",
+    anchorPoint: new google.maps.Point(0, -29),
+    draggable: true
+  });
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    infowindow.close();
+    marker.setVisible(false);
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      return;
+    }
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({'latLng': place.geometry.location}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results[0]) {
+          $('#txtaddress').val(results[0].formatted_address);
+          infowindow.setContent(results[0].formatted_address);
+          infowindow.open(map, marker);
+        }
+      }
+    });
+    // If the place has a geometry, then present it on a map.
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17); // Why 17? Because it looks good.
+    }
+    marker.setIcon( /** @type {google.maps.Icon} */ ({
+      url: "theme/img/core-img/gps.png"
+    }));
+    document.getElementById('txtlat').value = place.geometry.location.lat();
+    document.getElementById('txtlng').value = place.geometry.location.lng();
+    console.log(place.geometry.location.lat());
+    marker.setPosition(place.geometry.location);
+    marker.setVisible(true);
+
+    var address = '';
+    if (place.address_components) {
+      address = [
+      (place.address_components[0] && place.address_components[0].short_name || ''), (place.address_components[1] && place.address_components[1].short_name || ''), (place.address_components[2] && place.address_components[2].short_name || '')
+      ].join(' ');
+    }
+    /* Dragend Marker */
+    google.maps.event.addListener(marker, 'dragend', function() {
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            $('#location-text-box').val(results[0].formatted_address);
+            $('#txtlat').val(marker.getPosition().lat());
+            $('#txtlng').val(marker.getPosition().lng());
+            infowindow.setContent(results[0].formatted_address);
+            infowindow.open(map, marker);
+          }
+        }
+      });
+    });
+    /* End Dragend */
+  });
+
+}
+
+
+// google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<script type="text/javascript" src="assets/js/selectize.js"></script>
+<script>
+  $(function() {
+    $('select').selectize(options);
+  });
+  $('#select-state').selectize({
+    maxItems: null
+  });
+</script>
 @endsection
