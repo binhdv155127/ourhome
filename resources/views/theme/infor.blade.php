@@ -160,49 +160,27 @@
                                                                 <div class="row">
                                                                     <!-- Single Agent Area -->
                                                                     <div class="col-12 col-md-4 col-lg-4">
-                                                                            <div class="single-agent-area wow fadeInUp" data-wow-delay="200ms">
-                                                                                <!-- Agent Thumb -->
-                                                                                <div class="single-agent-thumb">
-                                                                                    <img src="theme/img/bg-img/49.jpg" alt="">
-                                                                                </div>
-                                                                                <!-- Agent Info -->
-                                                                                <div class="agent-info"style="background: #faebd7ad;">
-                                                                                    <a href="#">Bình Dương</a>
-                                                                                    <p><i class="fa fa-user-circle-o" aria-hidden="true"></i> Giới tính: Nữ </p>
-                                                                                    <p><i class="fa fa-address-book" aria-hidden="true"></i> Tuổi: 22</p>
-                                                                                    <p><i class="fa fa-skype" aria-hidden="true"></i> binhabc.sd</p>
-                                                                                </div>
-                                                                                <!-- Agent Social Info -->
-                                                                                <div class="agent-social-info d-flex"style="background: #00000040;height: 55px;">
-                                                                                    <a href="user/meeting/{{ $item->id }}">
-                                                                                        <p class="btn btn-success" style="width: 140px;border-radius: inherit;height: 55px;padding-top: 16px;"> Chấp nhận</p>
-                                                                                    </a>
+                                                                        <div class="single-agent-area wow fadeInUp" data-wow-delay="200ms">
+                                                                            <!-- Agent Thumb -->
+                                                                            <div class="single-agent-thumb">
+                                                                                <img src="theme/img/bg-img/49.jpg" alt="">
+                                                                            </div>
+                                                                            <!-- Agent Info -->
+                                                                            <div class="agent-info"style="background: #faebd7ad;">
+                                                                                <a href="#">Bình Dương</a>
+                                                                                <p><i class="fa fa-user-circle-o" aria-hidden="true"></i> Giới tính: Nữ </p>
+                                                                                <p><i class="fa fa-address-book" aria-hidden="true"></i> Tuổi: 22</p>
+                                                                                <p><i class="fa fa-skype" aria-hidden="true"></i> binhabc.sd</p>
+                                                                            </div>
+                                                                            <!-- Agent Social Info -->
+                                                                            <div class="agent-social-info d-flex"style="background: #00000040;height: 55px;">
+                                                                                <a href="user/meeting/{{ $item->id }}">
+                                                                                    <p class="btn btn-success" style="width: 140px;border-radius: inherit;height: 55px;padding-top: 16px;"> Chấp nhận</p>
+                                                                                </a>
 
-                                                                                    <button class="btn btn-danger" style="margin-left: 77px;width: 176px;border-radius: inherit;" data-toggle="modal" data-target="#myModal">Muốn kết nối với bạn</button>
-                                                                                </div>
+                                                                                <button class="btn btn-danger" style="margin-left: 77px;width: 176px;border-radius: inherit;" data-toggle="modal" data-target="#myModal">Muốn kết nối với bạn</button>
                                                                             </div>
-                                                                    </div>
-                                                                    <!-- Single Agent Area -->
-                                                                    <div class="col-12 col-md-4 col-lg-4">
-                                                                            <div class="single-agent-area wow fadeInUp" data-wow-delay="200ms">
-                                                                                <!-- Agent Thumb -->
-                                                                                <div class="single-agent-thumb">
-                                                                                    <img src="theme/img/bg-img/50.jpg" alt="">
-                                                                                </div>
-                                                                                <!-- Agent Info -->
-                                                                                <div class="agent-info">
-                                                                                    <a href="#">Văn Phúc</a>
-                                                                                    <p><i class="fa fa-phone" aria-hidden="true"></i> 123456789 </p>
-                                                                                    <p><i class="fa fa-envelope" aria-hidden="true"></i> Binh@gmail.com</p>
-                                                                                    <p><i class="fa fa-skype" aria-hidden="true"></i> binhabc.sd</p>
-                                                                                </div>
-                                                                                <!-- Agent Social Info -->
-                                                                                <div class="agent-social-info d-flex"style="background: #00000014;height: 55px;">
-                                                                                    <a href="user/meeting/{{ $item->id }}" style=" margin-left: 85px;">
-                                                                                        <p class="btn btn-success" style="width: 140px;border-radius: inherit;height: 55px;padding-top: 16px;"> Chấp nhận</p>
-                                                                                    </a>
-                                                                                </div>
-                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -24,11 +24,14 @@ Route::get('person/{id}','personController@user');
 Route::get('rate/{id}','personController@rate');
 Route::get('rateroom/{id}','pageDetailController@rate');
 Route::get('modifyinfor/{id}','personController@update');
+Route::get('care','RoomCareController@care')->name('care');
 
 Route::get('user/meeting/{id}','personController@meet');
 
 Route::get('login','personController@login');
 Route::post('login','personController@postlogin');
+Route::get('register','personController@register');
+Route::post('register','personController@postRegister');
 Route::get('logout','personController@logOut');
 
 Route::get('user/news','postNewsController@new');

@@ -73,9 +73,12 @@
                     <p>GẦN SIÊU THỊ , CHỢ - QUÁN ĂN TRONG BÁN KÍNH 100M</p>
                     <!-- Properties Info -->
                     <div class="properties-info">
-                        <p>diện tích: <span>13 m2</span></p>
+                        <p>diện tích: <span>{{$detail->acreage}} m2</span></p>
                         <p>loại phòng: <span>{{$detail->roomType->type}}</span></p>
                         <p>số người: <span>{{$detail->numberpeople}}</span></p>
+                    </div>
+                    <div class="properties-info" style="margin-top: 40px">
+                        <p style="color: red">người đăng:&nbsp;<a href="person/{{$detail->id_user}}"><span>{{$detail->user->name}}</span></a></p>
                     </div>
                 </div>
             </div>
@@ -103,7 +106,7 @@
                                 </ul>
                                 <ul class="d-flex flex-wrap" style="padding-top: 10px;
                                 padding-bottom: 10px; border-bottom: 1px solid #80808075">
-                                    <li><span>Diện tích:</span> </li><li style=" margin-left: -60px;"><span>13 m2</span></li>
+                                    <li><span>Diện tích:</span> </li><li style=" margin-left: -60px;"><span>{{$detail->acreage}} m2</span></li>
                                 </ul>
                                 <ul class="d-flex flex-wrap" style="padding-top: 10px;
                                 padding-bottom: 10px; border-bottom: 1px solid #80808075" >
@@ -293,7 +296,15 @@
                                 <form action="#" method="get">
                                     <div class="row">
                                         <div class="col-12">
-                                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn rehomes-btn mt-15 w-100">Quan tâm</button>
+                                            @if (Auth::user())
+                                                <button type="button" data-toggle="modal" data-target="#myModal" class="btn rehomes-btn mt-15 w-100" id="care">Quan tâm</button>
+                                                <input id="id_user" type="hidden" value="{{Auth::user()->id}}">
+                                                <input id="id_room" type="hidden" value="{{$detail->id}}">
+                                            @else
+                                                <a href="login">
+                                                    <button type="button" class="btn rehomes-btn mt-15 w-100">Quan tâm</button>
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </form>
@@ -436,4 +447,21 @@
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzlVX517mZWArHv4Dt3_JVG0aPmbSE5mE&callback=initMap"
 async defer></script>
+<script>
+    $( document ).ready(function() {
+        $('#care').click(function () {
+            let id_room = $('#id_room').val();
+            let id_user = $('#id_user').val();
+            $.ajax({
+                type: 'GET',
+                url: "{{route('care')}}",
+                data: { id_room:  id_room,id_user: id_user},
+                dataType: 'json',
+                success: function (data) {
+
+                }
+            });
+        })
+    });
+</script>
 @endsection
