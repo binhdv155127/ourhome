@@ -158,8 +158,9 @@
                                                             <!-- Form -->
                                                             <div class="#">
                                                                 <div class="row">
+                                                                    @foreach ($item->users as $user)
                                                                     <!-- Single Agent Area -->
-                                                                    <div class="col-12 col-md-4 col-lg-4">
+                                                                        <div class="col-12 col-md-4 col-lg-4">
                                                                         <div class="single-agent-area wow fadeInUp" data-wow-delay="200ms">
                                                                             <!-- Agent Thumb -->
                                                                             <div class="single-agent-thumb">
@@ -167,9 +168,9 @@
                                                                             </div>
                                                                             <!-- Agent Info -->
                                                                             <div class="agent-info"style="background: #faebd7ad;">
-                                                                                <a href="#">Bình Dương</a>
-                                                                                <p><i class="fa fa-user-circle-o" aria-hidden="true"></i> Giới tính: Nữ </p>
-                                                                                <p><i class="fa fa-address-book" aria-hidden="true"></i> Tuổi: 22</p>
+                                                                                <a href="#">{{ $user->name }}</a>
+                                                                                <p><i class="fa fa-user-circle-o" aria-hidden="true"></i> Giới tính: {{ $user->gender ? config('ourhome.gender')[$user->gender] : '' }} </p>
+                                                                                <p><i class="fa fa-address-book" aria-hidden="true"></i> Tuổi: {{ $user->birthday ? substr($user->birthday, strlen($user->birthday), -4): '' }}</p>
                                                                                 <p><i class="fa fa-skype" aria-hidden="true"></i> binhabc.sd</p>
                                                                             </div>
                                                                             <!-- Agent Social Info -->
@@ -182,6 +183,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    @endforeach
                                                                 </div>
                                                             </div>
                                                         </div>

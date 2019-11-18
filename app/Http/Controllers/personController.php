@@ -20,7 +20,9 @@ class personController extends Controller
     public function user($id)
     {
         $person = User::where('id',$id)->get();
-        $rooms = Rooms::where('id_user',$id)->get();
+        $rooms = Rooms::where('id_user',$id)->with(['users'])->get();
+//        dd($rooms);
+
         return view('theme.infor',compact('person','rooms'));
     }
 
