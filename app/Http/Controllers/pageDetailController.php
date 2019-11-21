@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\RateRoom;
 use App\Rooms;
 use App\Photo;
+use App\RoomUsed;
 use App\Wards;
 use Illuminate\Http\Request;
 
@@ -22,7 +24,9 @@ class pageDetailController extends Controller
         $photos1 = Photo::where('id_room',$id)->get();
         $recent = Rooms::orderBy('id','desc')->take(3)->get();
         $relevant = Rooms::where('id_district',$detail->id_district)->take(2)->get();
-        return view('theme.detail',['detail'=>$detail,'photos'=>$photos,'photos1'=>$photos1,'recent'=>$recent,'relevant'=>$relevant]);
+        $rate = RoomUsed::with('roomRate')->where('id_room', $id)->first();
+
+        return view('theme.detail',['detail'=>$detail,'photos'=>$photos,'photos1'=>$photos1,'recent'=>$recent,'relevant'=>$relevant, 'rate' => $rate]);
     }
 
     public function search(Request $request){

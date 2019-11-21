@@ -163,7 +163,7 @@
                                                     <div class="floor-thumb-content mb-80 wow fadeInUp" data-wow-delay="200ms">
                                                         <h4 class="mb-30">Đánh giá
                                                             <i style="font-size: 14px;color: gray;margin-left: 30px;">Sao trung bình:</i>
-                                                            <i>4.6</i>
+                                                            <i>4.9</i>
                                                             <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                                             <a href="rateroom/{{$detail->id}}">
                                                                 <button class="btn btn-success" style="margin-left: 425px;margin-top: -85px;">Xem tất cả đánh giá</button>
@@ -173,47 +173,26 @@
                                                     </div>
 
                                                     <ol>
-                                                        <!-- Single Comment Area -->
-                                                        <li class="single_comment_area">
-                                                            <!-- Comment Content -->
-                                                            <div class="comment-content d-flex">
-                                                                <!-- Comment Author -->
-                                                                <div class="comment-author">
-                                                                    <img src="theme/img/bg-img/61.jpg" alt="author">
+                                                        @foreach ($rate->roomRate as $rateComment)
+                                                            <!-- Single Comment Area -->
+                                                            <li class="single_comment_area">
+                                                                <!-- Comment Content -->
+                                                                <div class="comment-content d-flex">
+                                                                    <!-- Comment Author -->
+                                                                    <div class="comment-author">
+                                                                        <img src="theme/img/bg-img/61.jpg" alt="author">
+                                                                    </div>
+                                                                    <!-- Comment Meta -->
+                                                                    <div class="comment-meta">
+                                                                        <a href="#" class="'post-date">{{ $rateComment->comment_date }}</a>
+                                                                        <h5>Binh</h5>
+                                                                        <p>
+                                                                            <p>{{ $rateComment->content }}</p>
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
-                                                                <!-- Comment Meta -->
-                                                                <div class="comment-meta">
-                                                                    <a href="#" class="post-date">Dec 19, 2019</a>
-                                                                    <h5>Hoàng</h5>
-                                                                    <p>
-                                                                        phòng sạch thoáng mát, bạn chủ khá ngăn nắp, dễ thương, mình thấy phòng rất đầy đủ tiện nghi
-                                                                        mùa đông khá ấm áp, anh ninh thì siêu tốt luôn
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-
-                                                        <!-- Single Comment Area -->
-                                                        <li class="single_comment_area">
-                                                            <!-- Comment Content -->
-                                                            <div class="comment-content d-flex">
-                                                                <!-- Comment Author -->
-                                                                <div class="comment-author">
-                                                                    <img src="theme/img/bg-img/63.jpg" alt="author">
-                                                                </div>
-                                                                <!-- Comment Meta -->
-                                                                <div class="comment-meta">
-                                                                    <a href="#" class="post-date">27 Aug 2019</a>
-                                                                    <h5>Huệ</h5>
-                                                                    <p>
-                                                                            <p>
-                                                                                    phòng sạch thoáng mát, bạn chủ khá ngăn nắp, dễ thương, mình thấy phòng rất đầy đủ tiện nghi
-                                                                                    mùa đông khá ấm áp, anh ninh thì siêu tốt luôn
-                                                                                </p>
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
+                                                            </li>
+                                                        @endforeach
                                                     </ol>
                                                 </div>
                                             </div>
