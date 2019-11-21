@@ -24,7 +24,7 @@ class pageDetailController extends Controller
         $photos1 = Photo::where('id_room',$id)->get();
         $recent = Rooms::orderBy('id','desc')->take(3)->get();
         $relevant = Rooms::where('id_district',$detail->id_district)->take(2)->get();
-        $rate = RoomUsed::with('roomRate')->where('id_room', $id)->first();
+        $rate = RoomUsed::with('roomRate', 'user')->where('id_room', $id)->orderBy('id')->first();
 
         return view('theme.detail',['detail'=>$detail,'photos'=>$photos,'photos1'=>$photos1,'recent'=>$recent,'relevant'=>$relevant, 'rate' => $rate]);
     }

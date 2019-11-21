@@ -180,12 +180,12 @@
                                                                 <div class="comment-content d-flex">
                                                                     <!-- Comment Author -->
                                                                     <div class="comment-author">
-                                                                        <img src="theme/img/bg-img/61.jpg" alt="author">
+                                                                        <img src={{ "theme/img/bg-img/". $rate->user->avatar .".jpg" }} alt="author">
                                                                     </div>
                                                                     <!-- Comment Meta -->
                                                                     <div class="comment-meta">
                                                                         <a href="#" class="'post-date">{{ $rateComment->comment_date }}</a>
-                                                                        <h5>Binh</h5>
+                                                                        <h5>{{ $rate->user->name }}</h5>
                                                                         <p>
                                                                             <p>{{ $rateComment->content }}</p>
                                                                         </p>
