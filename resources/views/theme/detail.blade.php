@@ -329,7 +329,7 @@
                                         </div>
                                     </div>
                                 @endforeach
-
+                                <div class="append"></div>
                             </div>
                         </div>
                     </div>
@@ -350,8 +350,7 @@
                     </button>
                 </div>
                 <div class="container">
-                    <i class="fa fa-facebook-square face" aria-hidden="true" style="font-size: 80px;color: #2700ffb0;margin-left: 156px;" data-toggle="modal" data-target="#myModal1" data-dismiss="modal"></i>
-                    <img src="theme/img/core-img/zalo.png" class="zalo" alt="" style="height: 80px;margin-left: 5px;margin-top: -50px; " data-toggle="modal" data-target="#myModal1" data-dismiss="modal">
+                    <img src="theme/img/core-img/zalo.png" id ="zalo" class="zalo" alt="" style="height: 80px;margin-left: 5px;margin-top: -50px; " data-toggle="modal" data-target="#myModal1" data-dismiss="modal">
                 </div>
                 <div class="modal-footer">
                 {{-- <a href="https://www.facebook.com/messages/t/ho.tung.90226">
@@ -458,10 +457,24 @@ async defer></script>
                 data: { id_room:  id_room,id_user: id_user},
                 dataType: 'json',
                 success: function (data) {
+                    $('#id_user').after("<input id='idRoomCare' type='hidden' value='" + data + "'>");
+                },
+            });
+        });
+        $(document).on('click', '#zalo', function() {
+            let status = 1;
+            let idRoomCare = $('#idRoomCare').val();
+            console.log(idRoomCare);
+            $.ajax({
+                type: 'GET',
+                url: "{{route('care')}}",
+                data: { status:  status, idRoomCare: idRoomCare },
+                dataType: 'json',
+                success: function (data) {
 
                 }
             });
-        })
+        });
     });
 </script>
 @endsection

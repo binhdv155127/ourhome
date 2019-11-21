@@ -170,16 +170,17 @@
                                                                             <div class="agent-info"style="background: #faebd7ad;">
                                                                                 <a href="#">{{ $user->name }}</a>
                                                                                 <p><i class="fa fa-user-circle-o" aria-hidden="true"></i> Giới tính: {{ $user->gender ? config('ourhome.gender')[$user->gender] : '' }} </p>
-                                                                                <p><i class="fa fa-address-book" aria-hidden="true"></i> Tuổi: {{ $user->birthday ? substr($user->birthday, strlen($user->birthday), -4): '' }}</p>
-                                                                                <p><i class="fa fa-skype" aria-hidden="true"></i> binhabc.sd</p>
+                                                                                <p><i class="fa fa-address-book" aria-hidden="true"></i> Tuổi: {{ $user->birthday ? substr(date('d/m/Y'), 6) - substr($user->birthday, 6): '' }}</p>
+                                                                                <p><i class="fa fa-skype" aria-hidden="true"></i>Địa Chỉ: {{ $user->address }}</p>
                                                                             </div>
                                                                             <!-- Agent Social Info -->
                                                                             <div class="agent-social-info d-flex"style="background: #00000040;height: 55px;">
                                                                                 <a href="user/meeting/{{ $item->id }}">
                                                                                     <p class="btn btn-success" style="width: 140px;border-radius: inherit;height: 55px;padding-top: 16px;"> Chấp nhận</p>
                                                                                 </a>
-
-                                                                                <button class="btn btn-danger" style="margin-left: 77px;width: 176px;border-radius: inherit;" data-toggle="modal" data-target="#myModal">Muốn kết nối với bạn</button>
+                                                                                @if (!empty($user->pivot->status))
+                                                                                    <button class="btn btn-danger" style="margin-left: 77px;width: 176px;border-radius: inherit;" data-toggle="modal" data-target="#myModal">Muốn kết nối với bạn</button>
+                                                                                @endif
                                                                             </div>
                                                                         </div>
                                                                     </div>

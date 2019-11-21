@@ -45,7 +45,7 @@ class Rooms extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\User', 'room_cares', 'id_room', 'id_user');
+        return $this->belongsToMany('App\User', 'room_cares', 'id_room', 'id_user')->withPivot('status');
     }
 
 

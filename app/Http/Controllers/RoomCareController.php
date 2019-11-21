@@ -9,9 +9,14 @@ class RoomCareController extends Controller
 {
     public function care(Request $request)
     {
-        $data = $request->only(['id_room','id_user']);
-        $data['status'] = 1;
-        RoomCare::create($data);
-        return 200;
+        $data = $request->all();
+        if (isset($data['id_user']) && isset($data['id_room']) && !isset($data['status'])) {
+            $idRoomCare = RoomCare::create($data)->id;
+        }
+        if (isset($data['status'])) {
+            RoomCare::where('id', $data['idRoomCare'])->update(['status' => 1]);
+            return 200;
+        }
+        return response($idRoomCare, 200);
     }
 }
