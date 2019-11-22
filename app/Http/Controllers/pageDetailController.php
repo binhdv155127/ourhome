@@ -87,8 +87,14 @@ class pageDetailController extends Controller
     public function rate($id)
     {
         $detail = Rooms::find($id);
+        $dataRate = $this->rateService->getInformationRate('roomRate', $id, config('ourhome.limit'));
 
-        return view('theme.rateRoom', compact('detail'));
+        return view('theme.rateRoom', [
+            'detail' => $detail,
+            'rates' => $dataRate['rates'],
+            'getUserNames' => $dataRate['getUserNames'],
+            'avgPoint' => $dataRate['avgPoint'],
+        ]);
     }
 
 }
