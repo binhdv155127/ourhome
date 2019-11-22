@@ -75,15 +75,9 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <p>Chọn đánh giá của bạn:
-                                                    {{-- <i class="fa fa-star" aria-hidden="true" style="margin-left: 100px;color: #ffc107;"></i>
-                                                    <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                    <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                    <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i> --}}
-                                                    <i class="fa fa-star-o" aria-hidden="true" ></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true" ></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true" ></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true" ></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true" ></i>
+                                                    @for ($i = 1; $i <6; $i++)
+                                                        <i class="fa fa-star" aria-hidden="true" id={{ "star" . $i}}></i>
+                                                    @endfor
                                                 </p>
                                                 <input type="text" name="message-name" class="form-control mb-30" placeholder="Nhập đánh giá về người cho ở ghép">
                                                 <button type="submit" class="btn rehomes-btn mt-15">Gửi đánh giá</button>
@@ -137,6 +131,10 @@
             $("#rate").click(function(){
             $( "#forrate").slideToggle("slow");
             });
+             for (let i = 1; $i <6; $i++) {
+
+             }
          });
+
     </script>
 @endsection
