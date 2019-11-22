@@ -61,6 +61,6 @@ class Rooms extends Model
 
     public function rateRoom()
     {
-        return $this->hasManyThrough('App\room_useds', 'App\rate_rooms', 'id_roomused', 'id_user', 'id');
+        return $this->hasManyThrough('App\RateRoom', 'App\RoomUsed', 'id_room', 'id_roomused', 'id', 'id');
     }
 }

@@ -202,7 +202,7 @@
                                     <div class="floor-thumb-content mb-80 wow fadeInUp" data-wow-delay="200ms">
                                         <h4 class="mb-30">Đánh giá
                                             <i style="font-size: 17px;color: gray;margin-left: 45px;">Sao trung bình:</i>
-                                            <i>4.6</i>
+                                            <i>{{ $avgPoint }}</i>
                                             <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                             <a href="rate/{{$person['0']['id']}}">
                                                 <button class="btn btn-success" style="margin-left: 425px;">Xem tất cả đánh giá</button>
@@ -210,56 +210,30 @@
                                         </h4>
                                     </div>
                                     <ol>
+                                    @foreach ($rates as $rate)
+                                        @foreach ($rate->userRate as $userRate)
                                         <!-- Single Comment Area -->
                                         <li class="single_comment_area">
                                             <!-- Comment Content -->
                                             <div class="comment-content d-flex">
                                                 <!-- Comment Author -->
                                                 <div class="comment-author">
-                                                    <img src="theme/img/bg-img/61.jpg" alt="author">
+                                                    <img src="{{ 'theme/img/bg-img/' . $userRate->avatar . '.jpg' }}" alt="author">
                                                 </div>
                                                 <!-- Comment Meta -->
                                                 <div class="comment-meta">
-                                                    <a href="#" class="post-date">Dec 19, 2019</a>
-                                                    <h5>Hoàng
-                                                            <i class="fa fa-star" aria-hidden="true" style="margin-left: 30px;color: #ffc107;"></i>
-                                                            <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                            <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                            <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                            <i class="fa fa-star-o" aria-hidden="true" ></i>
+                                                    <a href="#" class="post-date">{{ $userRate->comment_date }}</a>
+                                                    <h5> {{ $userRate->name }}
+                                                        <i style="margin-left: 30px">{{ $userRate->point }}</i><i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                                     </h5>
                                                     <p>
-                                                        phòng sạch thoáng mát, bạn chủ khá ngăn nắp, dễ thương, mình thấy phòng rất đầy đủ tiện nghi
-                                                        mùa đông khá ấm áp, anh ninh thì siêu tốt luôn
+                                                        {{ $userRate->content }}
                                                     </p>
                                                 </div>
                                             </div>
                                         </li>
-                                        <!-- Single Comment Area -->
-                                        <li class="single_comment_area">
-                                            <!-- Comment Content -->
-                                            <div class="comment-content d-flex">
-                                                <!-- Comment Author -->
-                                                <div class="comment-author">
-                                                    <img src="theme/img/bg-img/61.jpg" alt="author">
-                                                </div>
-                                                <!-- Comment Meta -->
-                                                <div class="comment-meta">
-                                                    <a href="#" class="post-date">Dec 19, 2019</a>
-                                                    <h5>Hoàng
-                                                            <i class="fa fa-star" aria-hidden="true" style="margin-left: 30px;color: #ffc107;"></i>
-                                                            <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                            <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                            <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                            <i class="fa fa-star-o" aria-hidden="true" ></i>
-                                                    </h5>
-                                                    <p>
-                                                        phòng sạch thoáng mát, bạn chủ khá ngăn nắp, dễ thương, mình thấy phòng rất đầy đủ tiện nghi
-                                                        mùa đông khá ấm áp, anh ninh thì siêu tốt luôn
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        @endforeach
+                                    @endforeach
                                     </ol>
                                 </div>
                             </div>

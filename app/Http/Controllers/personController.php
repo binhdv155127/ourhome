@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Rooms;
 use App\RoomCare;
+use App\RoomUsed;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -21,8 +22,26 @@ class personController extends Controller
     {
         $person = User::where('id',$id)->get();
         $rooms = Rooms::where('id_user',$id)->with(['users'])->get();
+        $rates = RoomUsed::with('userRate')->where('id_room', $id)->orderBy('id', 'DESC')->limit(2)->get();
+        $users = User::all();
+        $getUserNames = [];
+        $totalPoint = 0;
+        $total = 0;
+        foreach ($users as $value) {
+            $getUserNames[$value->id]['name'] = $value->name;
+            $getUserNames[$value->id]['avatar'] = $value->avatar;
+        }
+        foreach ($rates as $key => $rate) {
+            foreach ($rate->userRate as $keyRoom => $userRate) {
+                $rates[$key]->userRate[$keyRoom]['name'] = $getUserNames[$rate->id_user]['name'];
+                $rates[$key]->userRate[$keyRoom]['avatar'] = $getUserNames[$rate->id_user]['avatar'];
+                $totalPoint += $userRate->point;
+                $total++;
+            }
+        }
+        $avgPoint = number_format($totalPoint/$total, 1);
 
-        return view('theme.infor',compact('person','rooms'));
+        return view('theme.infor',compact('person','rooms',  'rates', 'getUserNames', 'avgPoint'));
     }
 
     public function rate($id)

@@ -163,7 +163,7 @@
                                                     <div class="floor-thumb-content mb-80 wow fadeInUp" data-wow-delay="200ms">
                                                         <h4 class="mb-30">Đánh giá
                                                             <i style="font-size: 14px;color: gray;margin-left: 30px;">Sao trung bình:</i>
-                                                            <i>4.9</i>
+                                                            <i>{{ $avgPoint }}</i>
                                                             <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                                             <a href="rateroom/{{$detail->id}}">
                                                                 <button class="btn btn-success" style="margin-left: 425px;margin-top: -85px;">Xem tất cả đánh giá</button>
@@ -173,25 +173,30 @@
                                                     </div>
 
                                                     <ol>
-                                                        @foreach ($rate->roomRate as $rateComment)
+                                                        @foreach ($rates as $rate)
+                                                            @foreach ($rate->roomRate as $roomRate)
                                                             <!-- Single Comment Area -->
                                                             <li class="single_comment_area">
                                                                 <!-- Comment Content -->
                                                                 <div class="comment-content d-flex">
                                                                     <!-- Comment Author -->
                                                                     <div class="comment-author">
-                                                                        <img src={{ "theme/img/bg-img/". $rate->user->avatar .".jpg" }} alt="author">
+                                                                        <img src="{{ 'theme/img/bg-img/' . $roomRate->avatar . '.jpg' }}" alt="author">
                                                                     </div>
                                                                     <!-- Comment Meta -->
                                                                     <div class="comment-meta">
-                                                                        <a href="#" class="'post-date">{{ $rateComment->comment_date }}</a>
-                                                                        <h5>{{ $rate->user->name }}</h5>
+                                                                        <a href="#" class="'post-date">{{ $roomRate->comment_date }}</a>
+                                                                        <h5>
+                                                                            {{ $roomRate->name }}
+                                                                            <i style="margin-left: 30px;">{{ $roomRate->point }}</i><i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
+                                                                        </h5>
                                                                         <p>
-                                                                            <p>{{ $rateComment->content }}</p>
+                                                                            <p>{{ $roomRate->content }}</p>
                                                                         </p>
                                                                     </div>
                                                                 </div>
                                                             </li>
+                                                            @endforeach
                                                         @endforeach
                                                     </ol>
                                                 </div>
@@ -202,7 +207,7 @@
                             </div>
                         </div>
                         <!-- **** comment **** -->
-
+                        Xem tất cả đánh giá
 
                         <!-- Leave A Reply -->
                         <div class="rehomes-comment-form mb-80 wow fadeInUp" data-wow-delay="200ms" style="margin-top:30px">

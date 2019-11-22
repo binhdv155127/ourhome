@@ -6,6 +6,7 @@ use App\RateRoom;
 use App\Rooms;
 use App\Photo;
 use App\RoomUsed;
+use App\User;
 use App\Wards;
 use Illuminate\Http\Request;
 
@@ -24,9 +25,26 @@ class pageDetailController extends Controller
         $photos1 = Photo::where('id_room',$id)->get();
         $recent = Rooms::orderBy('id','desc')->take(3)->get();
         $relevant = Rooms::where('id_district',$detail->id_district)->take(2)->get();
-        $rate = RoomUsed::with('roomRate', 'user')->where('id_room', $id)->orderBy('id')->first();
-
-        return view('theme.detail',['detail'=>$detail,'photos'=>$photos,'photos1'=>$photos1,'recent'=>$recent,'relevant'=>$relevant, 'rate' => $rate]);
+        $rates = RoomUsed::with('roomRate')->where('id_room', $id)->orderBy('id', 'DESC')->limit(2)->get();
+        $users = User::all();
+        $getUserNames = [];
+        $totalPoint = 0;
+        $total = 0;
+        foreach ($users as $value) {
+            $getUserNames[$value->id]['name'] = $value->name;
+            $getUserNames[$value->id]['avatar'] = $value->avatar;
+        }
+        foreach ($rates as $key => $rate) {
+            foreach ($rate->roomRate as $keyRoom => $roomRate) {
+                $rates[$key]->roomRate[$keyRoom]['name'] = $getUserNames[$rate->id_user]['name'];
+                $rates[$key]->roomRate[$keyRoom]['avatar'] = $getUserNames[$rate->id_user]['avatar'];
+                $totalPoint += $roomRate->point;
+                $total++;
+            }
+        }
+        $avgPoint = number_format($totalPoint/$total, 1);
+        return view('theme.detail',['detail'=>$detail,'photos'=>$photos,'photos1'=>$photos1,
+            'recent'=>$recent,'relevant'=>$relevant, 'rates' => $rates, 'getUserNames' => $getUserNames, 'avgPoint' => $avgPoint]);
     }
 
     public function search(Request $request){
@@ -67,6 +85,7 @@ class pageDetailController extends Controller
     }
     public function rate($id)
     {
+
         return view('theme.rateRoom');
     }
 }
