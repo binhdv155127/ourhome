@@ -58,8 +58,8 @@ class RateService
         $totalPoint = 0;
         $total = 0;
         $avgPoint = 0;
-        foreach ($rates as $key => $rate) {
-            foreach ($rate->$relation as $keyRoom => $roomRate) {
+        foreach ($rates as $rate) {
+            foreach ($rate->$relation as $roomRate) {
                 $totalPoint += $roomRate->point;
                 $total++;
             }

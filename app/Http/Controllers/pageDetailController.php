@@ -28,7 +28,6 @@ class pageDetailController extends Controller
     public function index($id) {
         $dataRate = $this->rateService->getInformationRate('roomRate', $id, config('ourhome.limit'));
         $detail = Rooms::find($id);
-
         $photos = Photo::where('id_room', $id)->first();
         $photos1 = Photo::where('id_room', $id)->get();
         $recent = Rooms::orderBy('id', 'desc')->take(3)->get();
@@ -87,13 +86,13 @@ class pageDetailController extends Controller
     public function rate($id)
     {
         $detail = Rooms::find($id);
-        $dataRate = $this->rateService->getInformationRate('roomRate', $id, config('ourhome.limit'));
+        $dataRate = $this->rateService->getInformationRate('roomRate', $id);
 
         return view('theme.rateRoom', [
             'detail' => $detail,
             'rates' => $dataRate['rates'],
             'getUserNames' => $dataRate['getUserNames'],
-            'avgPoint' => $dataRate['avgPoint'],
+            'avgPoint' => $dataRate['getUserNames'],
         ]);
     }
 

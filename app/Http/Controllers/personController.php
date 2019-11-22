@@ -44,7 +44,15 @@ class personController extends Controller
 
     public function rate($id)
     {
-        return view('theme.rate');
+        $person = User::where('id', $id)->first();
+        $dataRate = $this->rateService->getInformationRate('userRate', $id);
+
+        return view('theme.rate', [
+            'person' => $person,
+            'rates' => $dataRate['rates'],
+            'getUserNames' => $dataRate['getUserNames'],
+            'avgPoint' => $dataRate['avgPoint'],
+        ]);
     }
 
     public function update($id)

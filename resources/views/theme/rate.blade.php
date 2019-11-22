@@ -42,14 +42,14 @@
                                                 <div class="newp" style="margin-bottom: 30px;border: 1px solid #80808061;height: 174px;padding: 10px;border-radius: 10px;">
                                                     <div class="left" style="float: left;    width: 505px;">
                                                         <div class="anh property-thumb" style=" float: left;">
-                                                            <img src="theme/img/bg-img/50.jpg" alt="" style="height: 150px;">
+                                                            <img src={{ 'theme/img/bg-img/' . $person->avatar . '.jpg' }} alt="" style="height: 150px;">
                                                         </div>
                                                         <div class="content" style="margin-left: 260px;">
                                                             <a href="room/">
-                                                                <h5>Dương Văn Bình</h5>
+                                                                <h5>{{ $person->name }}</h5>
                                                             </a>
-                                                            <P>Địa chỉ: 290 Kim Mã</P>
-                                                            <p>Nghề nghiệp : Sinh Viên</p>
+                                                            <P>Địa chỉ: {{ $person->address }}</P>
+                                                            <p>Email : {{ $person->email }}</p>
                                                             <button class="btn btn-warning">Chi tiết</button>
                                                         </div>
                                                     </div>
@@ -57,7 +57,7 @@
                                                         <div class="content" style="margin-left: 140px;">
                                                             <h4>Sao trung bình</h4>
                                                             <p style="margin-left: 76px; margin-top: 9px;font-size: 30px; ">
-                                                                4.6
+                                                                {{ $avgPoint }}
                                                                 <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                                             </p>
                                                             <button class="btn btn-success" style=" margin-left: 22px;" id="rate">Gửi đánh giá của bạn</button>
@@ -96,53 +96,30 @@
                             <!-- Comments Area -->
                             <div class="comment_area clearfix">
                                 <ol>
+                                @foreach ($rates as $rate)
+                                    @foreach ($rate->userRate as $userRate)
                                     <!-- Single Comment Area -->
                                     <li class="single_comment_area">
                                         <!-- Comment Content -->
                                         <div class="comment-content d-flex">
                                             <!-- Comment Author -->
                                             <div class="comment-author">
-                                                <img src="theme/img/bg-img/61.jpg" alt="author">
+                                                <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar'] . '.jpg' }}" alt="author">
                                             </div>
                                             <!-- Comment Meta -->
                                             <div class="comment-meta">
-                                                <a href="#" class="post-date">Dec 19, 2019</a>
-                                                <h5>Hoàng
-                                                        <i class="fa fa-star" aria-hidden="true" style="margin-left: 30px;color: #ffc107;"></i>
-                                                        <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                        <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                        <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                        <i class="fa fa-star-o" aria-hidden="true" ></i>
+                                                <a href="#" class="post-date">{{ $userRate->comment_date }}</a>
+                                                <h5>{{ $getUserNames[$rate->id_user]['name'] }}
+                                                    <i style="margin-left: 30px">{{ $userRate->point }}</i><i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                                 </h5>
                                                 <p>
-                                                    phòng sạch thoáng mát, bạn chủ khá ngăn nắp, dễ thương, mình thấy phòng rất đầy đủ tiện nghi
-                                                    mùa đông khá ấm áp, anh ninh thì siêu tốt luôn
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <!-- Comment Content -->
-                                        <div class="comment-content d-flex">
-                                            <!-- Comment Author -->
-                                            <div class="comment-author">
-                                                <img src="theme/img/bg-img/61.jpg" alt="author">
-                                            </div>
-                                            <!-- Comment Meta -->
-                                            <div class="comment-meta">
-                                                <a href="#" class="post-date">Dec 19, 2019</a>
-                                                <h5>Hoàng
-                                                        <i class="fa fa-star" aria-hidden="true" style="margin-left: 30px;color: #ffc107;"></i>
-                                                        <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                        <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                        <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                        <i class="fa fa-star-o" aria-hidden="true" ></i>
-                                                </h5>
-                                                <p>
-                                                    phòng sạch thoáng mát, bạn chủ khá ngăn nắp, dễ thương, mình thấy phòng rất đầy đủ tiện nghi
-                                                    mùa đông khá ấm áp, anh ninh thì siêu tốt luôn
+                                                    {{ $userRate->content }}
                                                 </p>
                                             </div>
                                         </div>
                                     </li>
+                                    @endforeach
+                                @endforeach
                                 </ol>
                             </div>
                         </div>
