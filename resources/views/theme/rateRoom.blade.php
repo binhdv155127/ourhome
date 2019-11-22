@@ -46,11 +46,11 @@
                                                         </div>
                                                         <div class="content" style="margin-left: 260px;">
                                                             <a href="room/">
-                                                                <h6>Phòng sạch đẹp khép kín quận Ba Đình</h6>
+                                                                <h6>{{ $detail->title }}</h6>
                                                             </a>
-                                                            <P>Địa chỉ: 290 Kim Mã</P>
-                                                            <p>Giá : 1500,000 VND/tháng</p>
-                                                            <button class="btn btn-warning" style=" margin-top: -10px;">Chi tiết</button>
+                                                            <P>Địa chỉ: {{ $detail->area }}</P>
+                                                            <p>Giá : {{ number_format($detail->price) }} VND/tháng</p>
+                                                            <a href="{{ url('room/'.$detail->id) }}"><button class="btn btn-warning" style=" margin-top: -10px;">Chi tiết</button></a>
                                                         </div>
                                                     </div>
                                                     <div class="right" style="border-left: 1px solid;margin-left: 506px;">
