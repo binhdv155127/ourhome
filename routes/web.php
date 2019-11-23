@@ -78,4 +78,15 @@ Route::group(['prefix'=>'admin','middleware'=>'adminmiddleware'], function () {
         Route::get('del/{id}','RoomTypeController@Delete');
     });
 
+
+    Route::group(['prefix'=>'roomservice'], function () {
+        Route::get('list','ServicesController@getList');
+        Route::get('edit/{id}','ServicesController@getEditServices');
+        Route::post('edit/{id}','ServicesController@postEditServices');
+
+        Route::get('new','ServicesController@getNewServices');
+        Route::post('new','ServicesController@postNewServices');
+
+        Route::get('del/{id}','ServicesController@Delete');
+    });
 });
