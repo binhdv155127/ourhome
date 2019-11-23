@@ -52,7 +52,7 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="admin/roomtype/list">Loại phòng</a>
-                <a class="collapse-item" href="">Dịch vụ phòng</a>
+                <a class="collapse-item" href="admin/roomservice/list">Dịch vụ phòng</a>
             </div>
         </div>
     </li>
