@@ -14,6 +14,7 @@
     <base href="{{asset('')}}">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="theme/style.css">
+    <link rel="stylesheet" href="{{ asset('theme/css/ourhome.css') }}">
     <style>
         .show{
             opacity: 1;

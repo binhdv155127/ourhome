@@ -14,4 +14,9 @@ class RateRoom extends Model
         return $this->belongsTo('App\RoomUsed', 'id_roomused', 'id');
     }
 
+    public function room()
+    {
+        return $this->belongsToMany('App\Rooms', 'room_useds', 'id_room', 'id_user');
+    }
+
 }

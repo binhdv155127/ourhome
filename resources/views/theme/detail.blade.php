@@ -163,7 +163,7 @@
                                                     <div class="floor-thumb-content mb-80 wow fadeInUp" data-wow-delay="200ms">
                                                         <h4 class="mb-30">Đánh giá
                                                             <i style="font-size: 14px;color: gray;margin-left: 30px;">Sao trung bình:</i>
-                                                            <i>4.6</i>
+                                                            <i>{{ $avgPoint }}</i>
                                                             <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                                             <a href="rateroom/{{$detail->id}}">
                                                                 <button class="btn btn-success" style="margin-left: 425px;margin-top: -85px;">Xem tất cả đánh giá</button>
@@ -173,47 +173,31 @@
                                                     </div>
 
                                                     <ol>
-                                                        <!-- Single Comment Area -->
-                                                        <li class="single_comment_area">
-                                                            <!-- Comment Content -->
-                                                            <div class="comment-content d-flex">
-                                                                <!-- Comment Author -->
-                                                                <div class="comment-author">
-                                                                    <img src="theme/img/bg-img/61.jpg" alt="author">
+                                                        @foreach ($rates as $rate)
+                                                            @foreach ($rate->roomRate as $roomRate)
+                                                            <!-- Single Comment Area -->
+                                                            <li class="single_comment_area">
+                                                                <!-- Comment Content -->
+                                                                <div class="comment-content d-flex">
+                                                                    <!-- Comment Author -->
+                                                                    <div class="comment-author">
+                                                                        <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar'] . '.jpg' }}" alt="author">
+                                                                    </div>
+                                                                    <!-- Comment Meta -->
+                                                                    <div class="comment-meta">
+                                                                        <a href="#" class="'post-date">{{ $roomRate->comment_date }}</a>
+                                                                        <h5>
+                                                                            {{ $getUserNames[$rate->id_user]['name'] }}
+                                                                            <i style="margin-left: 30px;">{{ $roomRate->point }}</i><i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
+                                                                        </h5>
+                                                                        <p>
+                                                                            <p>{{ $roomRate->content }}</p>
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
-                                                                <!-- Comment Meta -->
-                                                                <div class="comment-meta">
-                                                                    <a href="#" class="post-date">Dec 19, 2019</a>
-                                                                    <h5>Hoàng</h5>
-                                                                    <p>
-                                                                        phòng sạch thoáng mát, bạn chủ khá ngăn nắp, dễ thương, mình thấy phòng rất đầy đủ tiện nghi
-                                                                        mùa đông khá ấm áp, anh ninh thì siêu tốt luôn
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-
-                                                        <!-- Single Comment Area -->
-                                                        <li class="single_comment_area">
-                                                            <!-- Comment Content -->
-                                                            <div class="comment-content d-flex">
-                                                                <!-- Comment Author -->
-                                                                <div class="comment-author">
-                                                                    <img src="theme/img/bg-img/63.jpg" alt="author">
-                                                                </div>
-                                                                <!-- Comment Meta -->
-                                                                <div class="comment-meta">
-                                                                    <a href="#" class="post-date">27 Aug 2019</a>
-                                                                    <h5>Huệ</h5>
-                                                                    <p>
-                                                                            <p>
-                                                                                    phòng sạch thoáng mát, bạn chủ khá ngăn nắp, dễ thương, mình thấy phòng rất đầy đủ tiện nghi
-                                                                                    mùa đông khá ấm áp, anh ninh thì siêu tốt luôn
-                                                                                </p>
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
+                                                            </li>
+                                                            @endforeach
+                                                        @endforeach
                                                     </ol>
                                                 </div>
                                             </div>
@@ -223,7 +207,7 @@
                             </div>
                         </div>
                         <!-- **** comment **** -->
-
+                        Xem tất cả đánh giá
 
                         <!-- Leave A Reply -->
                         <div class="rehomes-comment-form mb-80 wow fadeInUp" data-wow-delay="200ms" style="margin-top:30px">
@@ -329,7 +313,7 @@
                                         </div>
                                     </div>
                                 @endforeach
-
+                                <div class="append"></div>
                             </div>
                         </div>
                     </div>
@@ -350,8 +334,7 @@
                     </button>
                 </div>
                 <div class="container">
-                    <i class="fa fa-facebook-square face" aria-hidden="true" style="font-size: 80px;color: #2700ffb0;margin-left: 156px;" data-toggle="modal" data-target="#myModal1" data-dismiss="modal"></i>
-                    <img src="theme/img/core-img/zalo.png" class="zalo" alt="" style="height: 80px;margin-left: 5px;margin-top: -50px; " data-toggle="modal" data-target="#myModal1" data-dismiss="modal">
+                    <img src="theme/img/core-img/zalo.png" id ="zalo" class="zalo" alt="" style="height: 80px;margin-left: 5px;margin-top: -50px; " data-toggle="modal" data-target="#myModal1" data-dismiss="modal">
                 </div>
                 <div class="modal-footer">
                 {{-- <a href="https://www.facebook.com/messages/t/ho.tung.90226">
@@ -458,10 +441,24 @@ async defer></script>
                 data: { id_room:  id_room,id_user: id_user},
                 dataType: 'json',
                 success: function (data) {
+                    $('#id_user').after("<input id='idRoomCare' type='hidden' value='" + data + "'>");
+                },
+            });
+        });
+        $(document).on('click', '#zalo', function() {
+            let status = 1;
+            let idRoomCare = $('#idRoomCare').val();
+            console.log(idRoomCare);
+            $.ajax({
+                type: 'GET',
+                url: "{{route('care')}}",
+                data: { status:  status, idRoomCare: idRoomCare },
+                dataType: 'json',
+                success: function (data) {
 
                 }
             });
-        })
+        });
     });
 </script>
 @endsection

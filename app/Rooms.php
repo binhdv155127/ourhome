@@ -43,18 +43,24 @@ class Rooms extends Model
         return $this->belongsTo('App\User', 'id_user', 'id');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'room_cares', 'id_room', 'id_user')->withPivot('status');
+    }
+
+
     public function message()
     {
         return $this->belongsToMany('App\User', 'messages', 'id_room', 'id_user');
     }
 
-    public function roomCare()
+    public function roomCares()
     {
-        return $this->belongsToMany('App\User', 'room_cares', 'id_room', 'id_user');
+        return $this->hasMany('App\RoomCare', 'id_room', 'id');
     }
 
     public function rateRoom()
     {
-        return $this->hasManyThrough('App\room_useds', 'App\rate_rooms', 'id_roomused', 'id_user', 'id');
+        return $this->hasManyThrough('App\RateRoom', 'App\RoomUsed', 'id_room', 'id_roomused', 'id', 'id');
     }
 }
