@@ -12,4 +12,6 @@ class Photo extends Model
     {
         return $this->belongsTo('App\Rooms', 'id_room', 'id');
     }
+
+    public $timestamps = false;
 }

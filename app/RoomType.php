@@ -12,4 +12,6 @@ class RoomType extends Model
     {
         return $this->hasOne('App\Rooms', 'id_roomtype', 'id');
     }
+
+    public $timestamps = false;
 }

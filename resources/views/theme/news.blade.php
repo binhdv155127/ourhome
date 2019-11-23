@@ -39,16 +39,16 @@
 
                     <div class="panel-body">
 
-                    <form action="user/news" method="POST">
+                    <form action="user/news" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div>
                             <label>Tiêu đề bài đăng:</label>
-                            <input type="text" class="form-control" placeholder="Tiêu đề" name="name" value="">
+                            <input type="text" class="form-control" placeholder="Tiêu đề" name="title" value="" required>
                         </div>
                         <br>
                         <div class="form-group">
-							<label>Địa chỉ phòng trọ:</label> Bạn có thể nhập hoặc chọn ví trí trên bản đồ
-							<input type="text" id="location-text-box" name="txtaddress" class="form-control" value="" />
+							          <label>Địa chỉ phòng trọ:</label>
+							          <input type="text" id="location-text-box" name="txtaddress" class="form-control" value="" required>
                             <p><i class="fa fa-bell"></i> Nếu địa chỉ hiển thị bên bản đồ không đúng bạn có thể điều chỉnh bằng cách kéo điểm màu xanh trên bản đồ tới vị trí chính xác.</p>
                             <input type="hidden" id="txtaddress" name="txtaddress" value=""  class="form-control"  />
                             <input type="hidden" id="txtlat" value="" name="txtlat"  class="form-control"  />
@@ -57,22 +57,22 @@
                         <div id="map-canvas" style="width: auto; height: 400px;"></div>
                         <div>
                             <label>Giá:</label>
-                            <input type="number" class="form-control" placeholder="Giá phòng" name="email"  value="">
+                            <input type="number" class="form-control" placeholder="Giá phòng" name="txtprice"  value="" required>
                         </div>
                         <br>
                         <div>
                             <label>Diện tích:</label>
-                            <input type="number" class="form-control" placeholder="Diện tích" name="email"  value="">
+                            <input type="number" class="form-control" placeholder="Diện tích" name="txtacreage"  value="" required>
                         </div>
                         <br>
                         <div>
                             <label>Số lượng người ở:</label>
                             <br>
-                            <select name="" id="">
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
+                            <select name="numberpeople" id="" required>
+                                <option value="1">1 người</option>
+                                <option value="2">2 người</option>
+                                <option value="3">3 người</option>
+                                <option value="4">4 người</option>
                             </select>
                         </div>
                         <br>
@@ -80,9 +80,23 @@
                         <div>
                             <label>Loại phòng:</label>
                             <br>
-                            <select name="" id="">
-                                <option value="">CCMN</option>
-                                <option value="">Nhà riêng</option>
+                            <select name="roomType" id="" required>
+                                @foreach ($roomType as $item)
+                                    <option value="{{$item->id}}">{{$item->type}}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+                        <br>
+                        <br>
+                        <div>
+                            <!-- ************** Max Items Demo ************** -->
+                            <label>Các tiện ích có trong phòng trọ:</label>
+                            <br>
+                            <select id="multiselect" name="tienich[]" multiple="multiple"  placeholder="Chọn các tiện ích phòng trọ" required>
+                                @foreach ($service as $item)
+                                    <option value="{{$item->id}}">{{$item->service}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <br>
@@ -90,19 +104,19 @@
                         <div>
                             <label>Quận:</label>
                             <br>
-                            <select name="" id="">
-                                <option value="">Quận Hai Bà Trưng</option>
-                                <option value="">Quận Đống Đa</option>
+                            <select name="district1" id="district1" >
+                                @foreach ($district_share as $item)
+                                    <option value="{{$item->id}}">{{$item->districtName}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <br>
                         <br>
-                        <div>
+                        <div id="ward3">
                             <label>Phố:</label>
                             <br>
-                            <select name="" id="">
-                                <option value="">Bách Khoa</option>
-                                <option value="">Đại Cồ Việt</option>
+                            <select name="ward1" id="ward2">
+
                             </select>
                         </div>
                         <br>
@@ -110,13 +124,13 @@
                         <div class="form-group">
                             <label for="comment">Thêm hình ảnh:</label>
                             <div class="file-loading">
-                                <input id="file-5" type="file" class="file" name="hinhanh[]" multiple data-preview-file-type="any" data-upload-url="#">
+                                <input id="file-5" type="file" class="file" name="hinhanh[]" multiple data-preview-file-type="any" data-upload-url="#" required>
                             </div>
                         </div>
                         <br>
                         <div>
                             <label>Mô tả:</label>
-                            <textarea class="form-control" name="" id="demo" cols="30" rows="10"></textarea>
+                            <textarea class="form-control" name="description" id="demo" cols="30" rows="10" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-success" style=" margin-top: 20px; padding: 10px 40px;margin-left: 290px;">Đăng tin</button>
                     </form>
@@ -130,12 +144,13 @@
 <!-- end Page Content -->
 @endsection
 @section('script')
-<script type="text/javascript">
-    $('#file-5').fileinput({
-        theme: 'fa',
-        language: 'vi',
-        showUpload: false,
-        allowedFileExtensions: ['jpg', 'png', 'gif']
+<script>
+    console.log('xxx');
+    $("#district1").change(function(){
+        var idDistrict = $(this).val();
+        $.get("ward/"+idDistrict,function(data){
+        $('#ward2').html(data);
+        });
     });
 </script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzlVX517mZWArHv4Dt3_JVG0aPmbSE5mE&callback=initialize&libraries=geometry,places" async defer></script>
@@ -306,12 +321,11 @@
 // google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 <script type="text/javascript" src="assets/js/selectize.js"></script>
-<script>
-  $(function() {
-    $('select').selectize(options);
-  });
-  $('#select-state').selectize({
-    maxItems: null
-  });
+
+<script type="text/javascript">
+$(document).ready(function() {
+        $('#multiselect').multiselect();
+});
 </script>
+
 @endsection

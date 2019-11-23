@@ -7,79 +7,57 @@ use Illuminate\Http\Request;
 
 class RoomTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function getList(){
+      $roomType = RoomType::where('deleted_at',0)->paginate(5);
+      return view('admin.roomType.list',compact('roomType'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function getNewRoomType(){
+      return view('admin.roomType.new');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function postNewRoomType(Request $request){
+       $this->validate($request,
+        [
+            'type'=>'required|min:3|max:100|unique:room_types,type'
+        ],
+        [
+            'type.required'=>'Bạn chưa nhập',
+            'type.unique'=>'Tên đã tồn tại',
+            'type.min'=>'Tên phài dài từ 3 đến 100 kí tự',
+            'type.max'=>'Tên phài dài từ 3 đến 100 kí tự',
+        ]);
+
+        $type = new RoomType;
+        $type->type=$request->type;
+        $type->save();
+        return redirect('admin/roomtype/list')->with('thongbao','Thêm thành công');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\RoomType  $roomType
-     * @return \Illuminate\Http\Response
-     */
-    public function show(RoomType $roomType)
-    {
-        //
+    public function getEditRoomType($id){
+      $type = RoomType::find($id);
+      return view('admin.roomType.edit',compact('type'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\RoomType  $roomType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(RoomType $roomType)
-    {
-        //
+    public function postEditRoomType(Request $request,$id){
+        $this->validate($request,
+        [
+            'type'=>'min:3|max:100'
+        ],
+        [
+            'type.min'=>'Tên phài dài từ 3 đến 100 kí tự',
+            'type.max'=>'Tên phài dài từ 3 đến 100 kí tự',
+        ]);
+      $type = RoomType::find($id);
+      $type->type=$request->type;
+      $type->save();
+      return redirect('admin/roomtype/list')->with('thongbao','Đã sửa thành công');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\RoomType  $roomType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, RoomType $roomType)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\RoomType  $roomType
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(RoomType $roomType)
-    {
-        //
+    public function Delete($id){
+      $type = RoomType::find($id);
+      $type->deleted_at = 1;
+      $type->save();
+      return redirect('admin/roomtype/list')->with('thongbao','Đã xóa loại phòng');
     }
 }

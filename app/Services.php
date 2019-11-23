@@ -12,4 +12,6 @@ class Services extends Model
     {
         return $this->belongsToMany('App\Rooms', 'service_rooms', 'id_room', 'id_service');
     }
+
+    public $timestamps = false;
 }

@@ -4,82 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Rooms;
 use Illuminate\Http\Request;
-
+use App\User;
 class RoomsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function getIndex(){
+    	$user = User::select('id')->get();
+    	$userRoom = Rooms::select('id_user')->distinct()->get();
+    	$room = Rooms::select('id')->get();
+    	$roomStatus = Rooms::select('id')->where('status',0)->get();
+        return view ('admin.pages.index',compact('user','userRoom','room','roomStatus'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+
+    public function getList(){
+    	$room = Rooms::where('deleted_at',0)->paginate(5);
+        return view ('admin.room.list',compact('room'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function ApproveMotelroom($id){
+      $room = Rooms::find($id);
+      $room->status = 0;
+      $room->save();
+      return redirect('admin/room/list')->with('thongbao','Đã kiểm duyệt bài đăng: '.$room->title);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Rooms  $rooms
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Rooms $rooms)
-    {
-        //
+    public function UnApproveMotelroom($id){
+      $room = Rooms::find($id);
+      $room->status = 1;
+      $room->save();
+      return redirect('admin/room/list')->with('thongbao','Đã bỏ kiểm duyệt bài đăng: '.$room->title);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Rooms  $rooms
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Rooms $rooms)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Rooms  $rooms
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Rooms $rooms)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Rooms  $rooms
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Rooms $rooms)
-    {
-        //
+    public function Delroom($id){
+      $room = Rooms::find($id);
+      $room->deleted_at = 1;
+      $room->save();
+      return redirect('admin/room/list')->with('thongbao','Đã xóa bài đăng');
     }
 }

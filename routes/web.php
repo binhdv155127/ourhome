@@ -36,3 +36,46 @@ Route::get('logout','personController@logOut');
 
 Route::get('user/news','postNewsController@new');
 Route::post('user/news','postNewsController@postnew');
+
+
+
+
+
+
+Route::get('admin/login','AdminController@getLogin');
+Route::post('admin/login','AdminController@postLogin')->name('admin.login');
+
+Route::group(['prefix'=>'admin','middleware'=>'adminmiddleware'], function () {
+
+    Route::get('logout','AdminController@logout');
+
+    Route::group(['prefix'=>'dashboard'], function () {
+        Route::get('','RoomsController@getIndex');
+    });
+
+    Route::group(['prefix'=>'room'], function () {
+        Route::get('list','RoomsController@getList');
+        Route::get('approve/{id}','RoomsController@ApproveMotelroom');
+        Route::get('unapprove/{id}','RoomsController@UnApproveMotelroom');
+        Route::get('del/{id}','RoomsController@Delroom');
+    });
+
+    Route::group(['prefix'=>'user'], function () {
+        Route::get('list','AdminController@getList');
+        Route::get('edit/{id}','AdminController@getUpdateUser');
+        Route::post('edit/{id}','AdminController@postUpdateUser')->name('admin.user.edit');
+        Route::get('del/{id}','AdminController@DeleteUser');
+    });
+
+    Route::group(['prefix'=>'roomtype'], function () {
+        Route::get('list','RoomTypeController@getList');
+        Route::get('edit/{id}','RoomTypeController@getEditRoomType');
+        Route::post('edit/{id}','RoomTypeController@postEditRoomType');
+
+        Route::get('new','RoomTypeController@getNewRoomType');
+        Route::post('new','RoomTypeController@postNewRoomType');
+
+        Route::get('del/{id}','RoomTypeController@Delete');
+    });
+
+});

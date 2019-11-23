@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <base href="{{asset('')}}">
     <title>@yield('title')</title>
 
     <!-- Custom fonts for this template-->
@@ -17,6 +17,7 @@
 
     <!-- Custom styles for this template-->
     <link href="admin/css/sb-admin-2.min.css" rel="stylesheet">
+    
 
 </head>
 
