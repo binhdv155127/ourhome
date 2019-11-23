@@ -168,12 +168,12 @@
                                                             <a href="rateroom/{{$detail->id}}">
                                                                 <button class="btn btn-success" style="margin-left: 425px;margin-top: -85px;">Xem tất cả đánh giá</button>
                                                             </a>
-
                                                         </h4>
                                                     </div>
 
                                                     <ol>
-                                                        @foreach ($rates as $rate)
+                                                        @if (empty($rates))
+                                                            @foreach ($rates as $rate)
                                                             @foreach ($rate->roomRate as $roomRate)
                                                             <!-- Single Comment Area -->
                                                             <li class="single_comment_area">
@@ -198,6 +198,9 @@
                                                             </li>
                                                             @endforeach
                                                         @endforeach
+                                                        @else
+                                                            <p class="text-center">Chưa có đánh giá nào</p>
+                                                        @endif
                                                     </ol>
                                                 </div>
                                             </div>
@@ -207,7 +210,6 @@
                             </div>
                         </div>
                         <!-- **** comment **** -->
-                        Xem tất cả đánh giá
 
                         <!-- Leave A Reply -->
                         <div class="rehomes-comment-form mb-80 wow fadeInUp" data-wow-delay="200ms" style="margin-top:30px">
