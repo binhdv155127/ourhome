@@ -171,34 +171,37 @@
 
                                                         </h4>
                                                     </div>
-
-                                                    <ol>
-                                                        @foreach ($rates as $rate)
-                                                            @foreach ($rate->roomRate as $roomRate)
-                                                            <!-- Single Comment Area -->
-                                                            <li class="single_comment_area">
-                                                                <!-- Comment Content -->
-                                                                <div class="comment-content d-flex">
-                                                                    <!-- Comment Author -->
-                                                                    <div class="comment-author">
-                                                                        <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar'] . '.jpg' }}" alt="author">
+                                                    @if (!empty($rates->roomRate))
+                                                        <ol>
+                                                            @foreach ($rates as $rate)
+                                                                @foreach ($rate->roomRate as $roomRate)
+                                                                <!-- Single Comment Area -->
+                                                                <li class="single_comment_area">
+                                                                    <!-- Comment Content -->
+                                                                    <div class="comment-content d-flex">
+                                                                        <!-- Comment Author -->
+                                                                        <div class="comment-author">
+                                                                            <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar'] . '.jpg' }}" alt="author">
+                                                                        </div>
+                                                                        <!-- Comment Meta -->
+                                                                        <div class="comment-meta">
+                                                                            <a href="#" class="'post-date">{{ $roomRate->comment_date }}</a>
+                                                                            <h5>
+                                                                                {{ $getUserNames[$rate->id_user]['name'] }}
+                                                                                <i style="margin-left: 30px;">{{ $roomRate->point }}</i><i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
+                                                                            </h5>
+                                                                            <p>
+                                                                                <p>{{ $roomRate->content }}</p>
+                                                                            </p>
+                                                                        </div>
                                                                     </div>
-                                                                    <!-- Comment Meta -->
-                                                                    <div class="comment-meta">
-                                                                        <a href="#" class="'post-date">{{ $roomRate->comment_date }}</a>
-                                                                        <h5>
-                                                                            {{ $getUserNames[$rate->id_user]['name'] }}
-                                                                            <i style="margin-left: 30px;">{{ $roomRate->point }}</i><i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                                        </h5>
-                                                                        <p>
-                                                                            <p>{{ $roomRate->content }}</p>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
+                                                                </li>
+                                                                @endforeach
                                                             @endforeach
-                                                        @endforeach
-                                                    </ol>
+                                                        </ol>
+                                                    @else
+                                                        <div class="text-center">Không có đánh giá nào</div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -207,7 +210,6 @@
                             </div>
                         </div>
                         <!-- **** comment **** -->
-                        Xem tất cả đánh giá
 
                         <!-- Leave A Reply -->
                         <div class="rehomes-comment-form mb-80 wow fadeInUp" data-wow-delay="200ms" style="margin-top:30px">

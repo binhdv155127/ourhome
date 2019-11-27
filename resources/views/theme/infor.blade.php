@@ -209,7 +209,8 @@
                                             </a>
                                         </h4>
                                     </div>
-                                    <ol>
+                                    @if (!empty($rates->roomRate))
+                                        <ol>
                                     @foreach ($rates as $rate)
                                         @foreach ($rate->userRate as $userRate)
                                         <!-- Single Comment Area -->
@@ -235,6 +236,9 @@
                                         @endforeach
                                     @endforeach
                                     </ol>
+                                    @else
+                                        <div class="text-center">Không có đánh giá nào</div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

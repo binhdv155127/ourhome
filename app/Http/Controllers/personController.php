@@ -31,7 +31,7 @@ class personController extends Controller
     {
         $person = User::where('id', $id)->get();
         $rooms = Rooms::where('id_user', $id)->with(['users'])->get();
-        $dataRate = $this->rateService->getInformationRate('userRate', $id, config('ourhome.limit'));
+        $dataRate = $this->rateService->getInformationRate('userRate', $id, 'id_user', config('ourhome.limit'));
 
         return view('theme.infor', [
             'person' => $person,
@@ -45,7 +45,7 @@ class personController extends Controller
     public function rate($id)
     {
         $person = User::where('id', $id)->first();
-        $dataRate = $this->rateService->getInformationRate('userRate', $id);
+        $dataRate = $this->rateService->getInformationRate('userRate', $id, 'id_user');
 
         return view('theme.rate', [
             'person' => $person,
