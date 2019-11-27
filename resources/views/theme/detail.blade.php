@@ -168,7 +168,6 @@
                                                             <a href="rateroom/{{$detail->id}}">
                                                                 <button class="btn btn-success" style="margin-left: 425px;margin-top: -85px;">Xem tất cả đánh giá</button>
                                                             </a>
-
                                                         </h4>
                                                     </div>
                                                     @if (!empty($rates->roomRate))

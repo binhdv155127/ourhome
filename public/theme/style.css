@@ -4283,3 +4283,14 @@ input:invalid {
 #forrate {
     display: none;
 }
+
+#ward2 {
+    display: initial !important;
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+#ward3 .nice-select {
+    display: none !important;
+}
