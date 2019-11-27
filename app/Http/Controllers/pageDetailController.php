@@ -92,7 +92,7 @@ class pageDetailController extends Controller
             'detail' => $detail,
             'rates' => $dataRate['rates'],
             'getUserNames' => $dataRate['getUserNames'],
-            'avgPoint' => $dataRate['getUserNames'],
+            'avgPoint' => $dataRate['avgPoint'],
         ]);
     }
 
