@@ -170,7 +170,7 @@
                                                             </a>
                                                         </h4>
                                                     </div>
-                                                    @if (!empty($rates->roomRate))
+                                                    @if (!empty($rates))
                                                         <ol>
                                                             @foreach ($rates as $rate)
                                                                 @foreach ($rate->roomRate as $roomRate)
