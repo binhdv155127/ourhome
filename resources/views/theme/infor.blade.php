@@ -205,7 +205,7 @@
                                             <i>{{ $avgPoint }}</i>
                                             <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                             <a href="rate/{{$person['0']['id']}}">
-                                                Xem tất cả đánh giá
+                                                <button class="btn btn-success" style="margin-left: 425px;margin-top: -85px;">Xem tất cả đánh giá</button>
                                             </a>
                                         </h4>
                                     </div>
