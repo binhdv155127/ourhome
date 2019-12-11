@@ -39,22 +39,23 @@
 
                     <div class="panel-body">
 
-                    <form action="nguoidung" method="POST">
+                    <form action="user/meeting/{{$user->id}}" method="POST">
                         @csrf
                         <div>
-                            <label>Tiêu đề:</label>
-                            <input type="text" class="form-control" placeholder="Tiêu đề" name="name" value="">
-                        </div>
-                        <br>
-                        <div>
                             <label>Lịch hẹn gặp:</label>
-                            <input type="datetime-local" class="form-control" placeholder="địa chỉ" name="email"  value="">
+                            <input type="datetime-local" class="form-control" placeholder="địa chỉ" name="schedule"  value="">
+                        </div>
+                        <div>
+                            <label>Địa chỉ:</label>
+                            <input type="text" class="form-control" placeholder="Tiêu đề" name="address" value="">
                         </div>
                         <br>
                         <div>
                             <label>Nội dung:</label>
-                            <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+                            <textarea class="form-control" name="content" id="" cols="30" rows="10"></textarea>
                         </div>
+                        <input type="hidden" name="mail" value="{{$user->email}}">
+                        <input type="hidden" name="name" value="{{$user->name}}">
                         <button type="submit" class="btn btn-success" style=" margin-top: 20px; padding: 10px 40px;margin-left: 290px;">Gửi</button>
                     </form>
                     </div>

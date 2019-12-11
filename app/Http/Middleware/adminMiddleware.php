@@ -24,15 +24,15 @@ class adminMiddleware
                         return $next($request);
                     } else {
                         return redirect('admin/login')->with('thongbao','Tài khoản bị khóa');
-                    }
-                    
+                    }  
                 }
                 else{
                     return redirect('admin/login')->with('thongbao','Vui lòng đăng nhập quyền Quản trị viên');              
                 }
             }
             
-        else {
+        else 
+        {
             return redirect('admin/login')->with('thongbao','Bạn chưa đăng nhập');
         }
     }

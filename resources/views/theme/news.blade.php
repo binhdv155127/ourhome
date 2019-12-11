@@ -1,5 +1,6 @@
 @extends('theme.layout.index')
 @section('content')
+
  <!-- **** Breadcrumb Area Start **** -->
  <div class="breadcrumb-area bg-img bg-overlay-3 wow fadeInUp" data-wow-delay="200ms" style="background-image: url(theme/img/bg-img/30.jpg);">
     <div class="container h-100">
@@ -29,13 +30,13 @@
     <div class="row carousel-holder">
         <div class="col-md-2"></div>
         <div class="col-md-8" style="border: 1px solid #00800030;
-        padding-top: 20px;
-        margin-bottom: 55px;
-        padding-bottom: 20px;">
-        <div class="panel-heading" style="font-weight: bold;font-size: 23px;width: 760px;margin-left: -16px;background-color: #92c800;padding: 10px 0 6px 255px;margin-top: -20px;">
-             <h4 style=" color: white;">Đăng tin Phòng trọ</h4>
-        </div>
-            <div class="panel panel-default" style="margin-top: 25px;">
+            padding-top: 20px;
+            padding-bottom: 20px; border-radius: 10px; margin: 20px 0 55px 0; padding-right: 0px;
+    padding-left: 0px;-webkit-box-shadow: -1px 14px 51px -17px rgba(0,0,0,.75);">
+                <div class="panel-heading" style="font-weight: bold;font-size: 23px;width: 100%;background-color: #92c800;padding: 10px 0 6px 0px;margin-top: -20px; text-align: center; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                    <h4 style=" color: white;">Đăng tin Phòng trọ</h4>
+                </div>
+            <div class="panel panel-default" style="margin-top: 25px; padding: 10px;">
 
                     <div class="panel-body">
 
@@ -67,20 +68,20 @@
                         <br>
                         <div>
                             <label>Số lượng người ở:</label>
-                            <br>
-                            <select name="numberpeople" id="" required>
-                                <option value="1">1 người</option>
-                                <option value="2">2 người</option>
-                                <option value="3">3 người</option>
-                                <option value="4">4 người</option>
-                            </select>
+                              <br>
+                              <select name="numberpeople" id="" required class="form-control">
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="3">4</option>
+                              </select>
                         </div>
                         <br>
                         <br>
-                        <div>
+                        <div >
                             <label>Loại phòng:</label>
                             <br>
-                            <select name="roomType" id="" required>
+                            <select name="roomType" id="" required class="form-control" multiple>
                                 @foreach ($roomType as $item)
                                     <option value="{{$item->id}}">{{$item->type}}</option>
                                 @endforeach
@@ -89,22 +90,22 @@
                         </div>
                         <br>
                         <br>
-                        <div>
+                        <div id="hslt">
                             <!-- ************** Max Items Demo ************** -->
                             <label>Các tiện ích có trong phòng trọ:</label>
                             <br>
-                            <select id="multiselect" name="tienich[]" multiple="multiple"  placeholder="Chọn các tiện ích phòng trọ" required>
+                            <select name="tienich[]" multiple="multiple"  placeholder="Chọn các tiện ích phòng trọ" required class="selectpicker form-control" multiple data-live-search="true">
                                 @foreach ($service as $item)
                                     <option value="{{$item->id}}">{{$item->service}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <br>
-                        <br>
+                       
                         <div>
                             <label>Quận:</label>
                             <br>
-                            <select name="district1" id="district1" >
+                            <select name="district1" id="district1" class="form-control">
                                 @foreach ($district_share as $item)
                                     <option value="{{$item->id}}">{{$item->districtName}}</option>
                                 @endforeach
@@ -115,7 +116,7 @@
                         <div id="ward3">
                             <label>Phố:</label>
                             <br>
-                            <select name="ward1" id="ward2">
+                            <select name="ward1" id="ward2" class="form-control">
 
                             </select>
                         </div>
@@ -125,6 +126,8 @@
                             <label for="comment">Thêm hình ảnh:</label>
                             <div class="file-loading">
                                 <input id="file-5" type="file" class="file" name="hinhanh[]" multiple data-preview-file-type="any" data-upload-url="#" required>
+                                <div id="myImg">
+                                </div>
                             </div>
                         </div>
                         <br>
@@ -152,6 +155,29 @@
         $('#ward2').html(data);
         });
     });
+</script>
+<script type="text/javascript">
+    $('.alert_type').change(function() {
+        var selected_value = $(this).val();
+        $(".alert_type option[value='"
+            + selected_value + "']")
+            .not(this.selectedOptions[0]).remove();
+    });
+    $(function() {
+      $(":file").change(function() {
+        if (this.files && this.files[0]) {
+          for (var i = 0; i < this.files.length; i++) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(this.files[i]);
+          }
+        }
+      });
+    });
+
+    function imageIsLoaded(e) {
+      $('#myImg').append('<img src=' + e.target.result + '>');
+    };
 </script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzlVX517mZWArHv4Dt3_JVG0aPmbSE5mE&callback=initialize&libraries=geometry,places" async defer></script>
 <script>
@@ -327,5 +353,8 @@ $(document).ready(function() {
         $('#multiselect').multiselect();
 });
 </script>
-
+  <link rel="stylesheet" href="theme/bootstrap.min.css">
+    <link rel="stylesheet" href="theme/css/bootstrap-select.css">
+    <script src="theme/js/bootstrap-select.js"></script>
+    <script src="theme/js/bootstrap.min.js"></script>
 @endsection

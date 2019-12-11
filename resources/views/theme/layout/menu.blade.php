@@ -35,7 +35,7 @@
                                 </li> --}}
                                 <li><a href="search">Tìm kiếm</a></li>
                                 @if (Auth::user())
-                                    <li><a href="person/{{ Auth::user()->id }}">trang cá nhân</a></li>
+                                    <li><a href="person/{{ Auth::user()->id }}/{{ Auth::user()->slugs }}.html">trang cá nhân</a></li>
                                 @endif
                                 <li><a href="{{ Auth::user()? 'user/news' : 'login' }}" ><h6 style="color: #fb1b04;">Đăng tin ngay!</h6> </a></li>
                             </ul>
@@ -43,7 +43,7 @@
                             <ul id="nav" style="margin-top: -10px;">
                                 <li><a href="#">Xin chào! {{ Auth::user()->name }}</a>
                                     <ul class="dropdown">
-                                        <li class="active"><a href="person/{{ Auth::user()->id }}">Thông tin chi tiết</a></li>
+                                        <li class="active"><a href="person/{{ Auth::user()->id }}/{{ Auth::user()->slugs }}.html">Thông tin chi tiết</a></li>
                                         <li><a href="user/news">Đăng tin</a></li>
                                         <li><a href="logout">Thoát</a></li>
                                     </ul>

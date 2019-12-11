@@ -50,7 +50,7 @@
                                                             </a>
                                                             <P>Địa chỉ: {{ $detail->area }}</P>
                                                             <p>Giá : {{ number_format($detail->price) }} VND/tháng</p>
-                                                            <a href="{{ url('room/'.$detail->id) }}"><button class="btn btn-warning" style=" margin-top: -10px;">Chi tiết</button></a>
+                                                            <a href="room/{{$detail->id}}/{{$detail->slugs}}.html"><button class="btn btn-warning" style=" margin-top: -10px;">Chi tiết</button></a>
                                                         </div>
                                                     </div>
                                                     <div class="right" style="border-left: 1px solid;margin-left: 506px;">

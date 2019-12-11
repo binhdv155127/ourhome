@@ -36,58 +36,76 @@
             <div class="panel panel-default" style="margin-top: 25px;">
 
                     <div class="panel-body">
-
-                    <form action="nguoidung" method="POST">
+                    @if(count($errors)>0)
+                    <div class="alert bg-danger" style="color: white;">
+                        <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+                        <span class="text-semibold">Lỗi!</span><br>
+                        @foreach($errors->all() as $err)
+                        {{$err}}<br>
+                        @endforeach
+                    </div>
+                    @endif
+                    @if(session('thongbao'))
+                    <div class="alert bg-success" style="color: white;">
+                        <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+                        <span class="text-semibold">Well done!</span>  {{session('thongbao')}}
+                    </div>
+                    @endif
+                    <form action="modifyinfor/{{$user->id}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div>
                             <label>Họ Tên:</label>
-                            <input type="text" class="form-control" placeholder="họ tên" name="name" value="">
+                            <input type="text" class="form-control" placeholder="Họ tên" name="name" value="{{$user->name}}" required="">
                         </div>
                         <br>
                         <div>
                             <label>Email:</label>
-                            <input type="email" class="form-control" placeholder="Email" name="email"  value="">
+                            <input type="email" readonly="" class="form-control" placeholder="Email" name="email"  value="{{$user->email}}">
                         </div>
                         <br>
                         <div>
                             <label>Số điện thoại:</label>
-                            <input type="phonenumber" class="form-control" placeholder="Số điện thoại" name="email"  value="">
+                            <input type="phonenumber" class="form-control" placeholder="Số điện thoại" name="phonenumber" value="{{$user->phonenumber}}" required="">
+                        </div>
+                        <div>
+                            <label>Địa chỉ:</label>
+                            <input type="text" class="form-control" placeholder="Địa chỉ" name="address" value="{{$user->phonenumber}}" required="">
                         </div>
                         <br>
                         <div>
                             <label>Ngày sinh:</label>
-                            <input type="date" class="form-control" placeholder="ngày sinh" name="email"  value="">
+                            <input type="date" class="form-control" placeholder="Ngày sinh" name="birthday"  value="{{$user->birthday}}" required="">
                         </div>
                         <br>
                         <div>
                             <label>Giới tính:</label>
                             <br>
-                            <select name="" id="">
-                                <option value="">Nam</option>
-                                <option value="">Nữ</option>
+                            <select name="gender" id="" class="form-control">
+                                <option value="1">Nam</option>
+                                <option value="0">Nữ</option>
                             </select>
                         </div>
                         <br>
                         <br>
                         <div>
-                            {{-- <input type="checkbox" name="changePassword" id="changePassword"> --}}
+                            <input type="checkbox" id="changePassword" name="changePassword" >
                             <label>Đặt lại mật khẩu:</label>
-                            <input type="password" class="form-control password" name="password" >
+                            <input type="password" class="form-control password" name="password" disabled="">
                         </div>
                         <br>
                         <div>
                             <label>Nhập lại mật khẩu:</label>
-                            <input type="password" class="form-control password" name="passwordAgain" >
+                            <input type="password" class="form-control password" name="repassword" disabled="">
                         </div>
                         <br>
                         <div>
                             <label>Avarta:</label>
-                            <input type="file" class="form-control password" name="passwordAgain" >
+                            <input type="file" class="form-control " name="avatar">
                         </div>
                         <br>
                         <div>
                             <label>Thông tin cá nhân:</label>
-                            <textarea class="form-control" name="" id="demo" cols="30" rows="10"></textarea>
+                            <textarea class="form-control" name="content" id="demo" cols="30" rows="10" required="" >{{$user->content}}</textarea>
                         </div>
                         <button type="submit" class="btn btn-success" style=" margin-top: 20px; padding: 10px 40px;margin-left: 200px;">Sửa</button>
                     </form>
@@ -99,4 +117,19 @@
     <!-- end slide -->
 </div>
 <!-- end Page Content -->
+@endsection
+@section('script')
+    <script>
+       $(document).ready(function(){
+           $("#changePassword").change(function(){
+                if($(this).is(":checked"))
+                {
+                    $(".password").removeAttr('disabled');
+                }
+                else{
+                    $(".password").attr('disabled','');
+                }
+           });
+       });
+    </script>
 @endsection

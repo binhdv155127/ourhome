@@ -40,7 +40,7 @@ class postNewsController extends Controller
         ]);
 
 
-
+dd($request->file('hinhanh'));
         $rooms = new Rooms;
         $rooms->title = $request->title;
         $rooms->price = $request->txtprice;

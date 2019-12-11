@@ -37,22 +37,22 @@
                 <!-- Properties Slider -->
                 <div id="property-thumb-silde" class="carousel slide wow fadeInUp" data-wow-delay="200ms" data-ride="carousel">
                     <ol class="carousel-indicators">
-                        <li data-target="#property-thumb-silde" data-slide-to="0" class="active" style="background-image: url(theme/img/bg-img/{{$photos->name}}.jpg);"></li>
+                        <li data-target="#property-thumb-silde" data-slide-to="0" class="active" style="background-image: url(theme/img/bg-img/{{$photos->name}});"></li>
                         @foreach ($photos1 as $key=>$item)
                           @if ($key>0)
-                          <li data-target="#property-thumb-silde" data-slide-to="$key" style="background-image: url(theme/img/bg-img/{{$item->name}}.jpg);"></li>
+                          <li data-target="#property-thumb-silde" data-slide-to="$key" style="background-image: url(theme/img/bg-img/{{$item->name}});"></li>
                           @endif
                         @endforeach
                     </ol>
 
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="theme/img/bg-img/{{$photos->name}}.jpg" class="d-block w-100" alt="...">
+                            <img src="theme/img/bg-img/{{$photos->name}}" class="d-block w-100" alt="...">
                         </div>
                         @foreach ($photos1 as $key=>$item)
                           @if ($key>0)
                           <div class="carousel-item">
-                                <img src="theme/img/bg-img/{{$item->name}}.jpg" class="d-block w-100" alt="...">
+                                <img src="theme/img/bg-img/{{$item->name}}" class="d-block w-100" alt="...">
                             </div>
                           @endif
                         @endforeach
@@ -137,7 +137,7 @@
 
                             <!-- Floor Thumb -->
                             <div class="floor-thumb">
-                                {{$detail->discription}}
+                                {!!$detail->discription!!}
                             </div>
                         </div>
                         <!-- Search Location Area -->
@@ -151,7 +151,7 @@
 
                         <!-- **** comment **** -->
                         <div class="rehomes-news-area blog-details" style="top: 0;">
-                            <div class="container">
+                            <div class="container" style="padding: 0;">
                                 <div class="blog-details-area">
                                     <div class="row justify-content-between">
                                         <div class="col-12">
@@ -181,7 +181,7 @@
                                                                 <div class="comment-content d-flex">
                                                                     <!-- Comment Author -->
                                                                     <div class="comment-author">
-                                                                        <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar'] . '.jpg' }}" alt="author">
+                                                                        <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar'] }}" alt="author">
                                                                     </div>
                                                                     <!-- Comment Meta -->
                                                                     <div class="comment-meta">
@@ -224,8 +224,8 @@
                                         <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
                                             <!-- Property Thumb -->
                                             <div class="property-thumb">
-                                                <a href="room/{{$item->id}}">
-                                                        <img src="theme/img/bg-img/{{ $item->photo[0]['name'] }}.jpg" alt="">
+                                                <a href="room/{{$item->id}}/{{$item->slugs}}.html">
+                                                        <img src="theme/img/bg-img/{{ $item->photo[0]['name'] }}" alt="">
                                                 </a>
 
                                             </div>
@@ -305,11 +305,11 @@
                                     <div class="single-recent-post d-flex align-items-center">
                                         <!-- Thumb -->
                                         <div class="properties-post-thumb">
-                                            <a href="room/{{$item->id}}"><img src="theme/img/bg-img/{{$item->photo[0]['name']}}.jpg" alt=""></a>
+                                            <a href="room/{{$item->id}}/{{$item->slugs}}.html"><img src="theme/img/bg-img/{{$item->photo[0]['name']}}" alt=""></a>
                                         </div>
                                         <!-- Post Content -->
                                         <div class="post-content">
-                                        <a href="room/{{$item->id}}" class="post-title">ở ghép {{$item->roomType->type}}</a>
+                                        <a href="room/{{$item->id}}/{{$item->slugs}}.html" class="post-title">ở ghép {{$item->roomType->type}}</a>
                                             <p class="properties--location"><i class="fa fa-map-marker" aria-hidden="true"></i> {{$item->district->districtName}}, hà nội</p>
                                             <p class="properties--rent">giá: <span>{{number_format($item->price)}}</span></p>
                                         </div>
@@ -336,7 +336,7 @@
                     </button>
                 </div>
                 <div class="container">
-                    <img src="theme/img/core-img/zalo.png" id ="zalo" class="zalo" alt="" style="height: 80px;margin-left: 5px;margin-top: -50px; " data-toggle="modal" data-target="#myModal1" data-dismiss="modal">
+                    <img src="theme/img/core-img/zalo.png" id ="zalo" class="zalo" alt="" style="height: 80px;margin-left: 190px; " data-toggle="modal" data-target="#myModal1" data-dismiss="modal">
                 </div>
                 <div class="modal-footer">
                 {{-- <a href="https://www.facebook.com/messages/t/ho.tung.90226">

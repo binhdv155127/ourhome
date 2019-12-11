@@ -17,16 +17,20 @@ Route::get('ad1',function(){
 
 
 Route::get('/','homeController@index');
-Route::get('room/{id}','pageDetailController@index');
+Route::get('room/{id}/{slugs}.html','pageDetailController@index');
 Route::get('ward/{idDistrict}','homeController@ajax');
 Route::get('search','pageDetailController@search');
-Route::get('person/{id}','personController@user');
+Route::get('person/{id}/{slugs}.html','personController@user');
 Route::get('rate/{id}','personController@rate');
 Route::get('rateroom/{id}','pageDetailController@rate');
-Route::get('modifyinfor/{id}','personController@update');
+
+Route::get('modifyinfor/{id}/{slugs}.html','personController@update');
+Route::post('modifyinfor/{id}','personController@postUpdate');
+
 Route::get('care','RoomCareController@care')->name('care');
 
 Route::get('user/meeting/{id}','personController@meet');
+Route::post('user/meeting/{id}','personController@postMeet');
 
 Route::get('login','personController@login');
 Route::post('login','personController@postlogin');

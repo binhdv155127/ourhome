@@ -2717,8 +2717,8 @@ input:invalid {
 
 .rehomes-news-area.blog-details .blog-details-area {
     background-color: #ffffff;
-    -webkit-box-shadow: 0px 16px 35px 0px rgba(0, 0, 0, 0.15);
-    box-shadow: 0px 16px 35px 0px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
+    
     padding: 50px;
 }
 
@@ -4286,11 +4286,12 @@ input:invalid {
 
 #ward2 {
     display: initial !important;
-    width: 150px;
-    height: 40px;
     border-radius: 5px;
 }
 
 #ward3 .nice-select {
+    display: none !important;
+}
+#hslt .nice-select {
     display: none !important;
 }

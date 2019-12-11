@@ -70,7 +70,7 @@
                         <h4 class="mb-30">Mô tả</h4>
                         <!-- Floor Thumb -->
                         <div class="floor-thumb">
-                            {{$person['0']['content']}}
+                            {!!$person['0']['content']!!}
                         </div>
                     </div>
 
@@ -87,8 +87,8 @@
                             <form action="#" method="get">
                                 <div class="row">
                                     <div class="col-12">
-                                        <a href="modifyinfor/{{$person['0']['id']}}">
-                                            <button type="button" class="btn rehomes-btn mt-15 w-100" style="margin-top: 65px;">Sửa thông tin cá nhân</button>
+                                        <a href="modifyinfor/{{$person['0']['id']}}/{{$person['0']['slugs']}}.html">
+                                            <button type="button" class="btn rehomes-btn mt-15 w-100" style="margin-top: 65px;">Cập nhật thông tin</button>
                                         </a>
                                     </div>
                                 </div>
@@ -132,7 +132,7 @@
                                                         @foreach ($rooms as $key=>$item)
                                                             <div class="newp" style="margin-bottom: 30px;border: 1px solid #80808061;height: 174px;padding: 10px;border-radius: 10px;">
                                                                 <div class="anh property-thumb" style=" float: left;">
-                                                                    <img src="theme/img/bg-img/{{ $item->photo[0]['name'] }}.jpg" alt="" style="height: 150px;">
+                                                                    <img src="theme/img/bg-img/{{ $item->photo[0]['name'] }}" alt="" style="height: 150px;">
                                                                 </div>
                                                                 <div class="content" style="margin-left: 260px;width: 570px;">
                                                                     <a href="room/{{$item->id}}">
@@ -159,6 +159,7 @@
                                                             <div class="#">
                                                                 <div class="row">
                                                                     @foreach ($item->users as $user)
+
                                                                     <!-- Single Agent Area -->
                                                                         <div class="col-12 col-md-4 col-lg-4">
                                                                         <div class="single-agent-area wow fadeInUp" data-wow-delay="200ms">
@@ -169,13 +170,13 @@
                                                                             <!-- Agent Info -->
                                                                             <div class="agent-info"style="background: #faebd7ad;">
                                                                                 <a href="#">{{ $user->name }}</a>
-                                                                                <p><i class="fa fa-user-circle-o" aria-hidden="true"></i> Giới tính: {{ $user->gender ? config('ourhome.gender')[$user->gender] : '' }} </p>
-                                                                                <p><i class="fa fa-address-book" aria-hidden="true"></i> Tuổi: {{ $user->birthday ? substr(date('d/m/Y'), 6) - substr($user->birthday, 6): '' }}</p>
+                                                                                <p><i class="fa fa-user-circle-o" aria-hidden="true"></i> Giới tính:  </p>
+                                                                                <p><i class="fa fa-address-book" aria-hidden="true"></i> Tuổi:</p>
                                                                                 <p><i class="fa fa-skype" aria-hidden="true"></i>Địa Chỉ: {{ $user->address }}</p>
                                                                             </div>
                                                                             <!-- Agent Social Info -->
                                                                             <div class="agent-social-info d-flex"style="background: #00000040;height: 55px;">
-                                                                                <a href="user/meeting/{{ $item->id }}">
+                                                                                <a href="user/meeting/{{ $user->id }}">
                                                                                     <p class="btn btn-success" style="width: 140px;border-radius: inherit;height: 55px;padding-top: 16px;"> Chấp nhận</p>
                                                                                 </a>
                                                                                 @if (!empty($user->pivot->status))
@@ -205,7 +206,7 @@
                                             <i>{{ $avgPoint }}</i>
                                             <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                             <a href="rate/{{$person['0']['id']}}">
-                                                Xem tất cả đánh giá
+                                               <button class="btn btn-success" style="margin-left: 425px;">Xem tất cả đánh giá</button>
                                             </a>
                                         </h4>
                                     </div>
@@ -219,7 +220,7 @@
                                             <div class="comment-content d-flex">
                                                 <!-- Comment Author -->
                                                 <div class="comment-author">
-                                                    <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar'] . '.jpg' }}" alt="author">
+                                                    <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar']  }}" alt="author">
                                                 </div>
                                                 <!-- Comment Meta -->
                                                 <div class="comment-meta">
@@ -261,8 +262,7 @@
             </button>
         </div>
         <div class="container">
-            <i class="fa fa-facebook-square face" aria-hidden="true" style="font-size: 80px;color: #2700ffb0;margin-left: 156px;" data-toggle="modal" data-target="#myModal1" data-dismiss="modal"></i>
-            <img src="theme/img/core-img/zalo.png" class="zalo" alt="" style="height: 80px;margin-left: 5px;margin-top: -50px; " data-toggle="modal" data-target="#myModal1" data-dismiss="modal">
+            <img src="theme/img/core-img/zalo.png" class="zalo" alt="" style="height: 80px;margin-left: 190px;" data-toggle="modal" data-target="#myModal1" data-dismiss="modal">
         </div>
         <div class="modal-footer">
         {{-- <a href="https://www.facebook.com/messages/t/ho.tung.90226">
@@ -282,9 +282,23 @@
             $("#qt0").click(function(){
             $( "#ngqt0").slideToggle("slow");
             });
-
             $("#qt1").click(function(){
                 $( "#ngqt1").slideToggle("slow");
+            });
+            $("#qt2").click(function(){
+                $( "#ngqt2").slideToggle("slow");
+            });
+            $("#qt3").click(function(){
+                $( "#ngqt3").slideToggle("slow");
+            });
+            $("#qt4").click(function(){
+                $( "#ngqt4").slideToggle("slow");
+            });
+            $("#qt5").click(function(){
+                $( "#ngqt5").slideToggle("slow");
+            });
+            $("#qt5").click(function(){
+                $( "#ngqt6").slideToggle("slow");
             });
          });
     </script>

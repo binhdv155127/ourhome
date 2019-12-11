@@ -22,6 +22,22 @@
 
         }
     </style>
+    <style>
+        .col-md-8{
+            padding: 0;
+        }
+        .panel-body{
+            padding: 0 15px;
+        }
+        .panel{
+            border: none !important;
+        }
+        #myImg img{
+            width: 200px;
+            height: 200px;
+            margin: 10px 20px 10px 0;
+        }
+    </style>
 
 </head>
 

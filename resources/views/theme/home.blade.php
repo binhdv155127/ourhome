@@ -12,11 +12,11 @@
             <!-- Single Property Area -->
             @foreach ($new as $item)
                <div class="col-12 col-md-6 col-lg-4">
-               <a href="room/{{$item->id}}">
+               <a href="room/{{$item->id}}/{{$item->slugs}}.html">
                     <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
                         <!-- Property Thumb -->
                         <div class="property-thumb">
-                            <img src="theme/img/bg-img/{{ $item->photo[0]['name'] }}.jpg" alt="">
+                            <img src="theme/img/bg-img/{{ $item->photo[0]['name'] }}" alt="">
                         </div>
 
                         <!-- Property Description -->
