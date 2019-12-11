@@ -206,40 +206,40 @@
                                             <i>{{ $avgPoint }}</i>
                                             <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                             <a href="rate/{{$person['0']['id']}}">
-                                               <button class="btn btn-success" style="margin-left: 425px;">Xem tất cả đánh giá</button>
+                                                <button class="btn btn-success" style="margin-left: 425px;margin-top: -85px;">Xem tất cả đánh giá</button>
                                             </a>
                                         </h4>
                                     </div>
-                                    <ol>
-                                    @if (empty($rates))
-                                        @foreach ($rates as $rate)
-                                        @foreach ($rate->userRate as $userRate)
-                                        <!-- Single Comment Area -->
-                                        <li class="single_comment_area">
-                                            <!-- Comment Content -->
-                                            <div class="comment-content d-flex">
-                                                <!-- Comment Author -->
-                                                <div class="comment-author">
-                                                    <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar']  }}" alt="author">
-                                                </div>
-                                                <!-- Comment Meta -->
-                                                <div class="comment-meta">
-                                                    <a href="#" class="post-date">{{ $userRate->comment_date }}</a>
-                                                    <h5> {{ $getUserNames[$rate->id_user]['name'] }}
-                                                        <i style="margin-left: 30px">{{ $userRate->point }}</i><i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                    </h5>
-                                                    <p>
-                                                        {{ $userRate->content }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        @endforeach
-                                    @endforeach
-                                    @else
-                                        <p class="text-center">Chưa có đánh giá nào</p>
-                                    @endif
-                                    </ol>
+                                    @if (!empty($rates))
+                                        <ol>
+                                            @foreach ($rates as $rate)
+                                                @foreach ($rate->userRate as $userRate)
+                                                <!-- Single Comment Area -->
+                                                    <li class="single_comment_area">
+                                                    <!-- Comment Content -->
+                                                    <div class="comment-content d-flex">
+                                                        <!-- Comment Author -->
+                                                        <div class="comment-author">
+                                                            <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar'] . '.jpg' }}" alt="author">
+                                                        </div>
+                                                        <!-- Comment Meta -->
+                                                        <div class="comment-meta">
+                                                            <a href="#" class="post-date">{{ $userRate->comment_date }}</a>
+                                                            <h5> {{ $getUserNames[$rate->id_user]['name'] }}
+                                                                <i style="margin-left: 30px">{{ $userRate->point }}</i><i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
+                                                            </h5>
+                                                            <p>
+                                                                {{ $userRate->content }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                @endforeach
+                                            @endforeach
+                                        </ol>
+                                        @else
+                                            <div class="text-center">Không có đánh giá nào</div>
+                                        @endif
                                 </div>
                             </div>
                         </div>
