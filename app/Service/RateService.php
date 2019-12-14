@@ -12,23 +12,24 @@ use Illuminate\Http\Request;
 
 class RateService
 {
+
     /**
      * Get information rate user and room.
      * @param $relation
      * @param $id
      * @param $limit
+     * @param type_id
      *
      * @return array
      */
-
-    public function getInformationRate($relation, $id, $limit = '')
+    public function getInformationRate($relation, $id, $type_id, $limit = '')
     {
         if ($limit == '') {
-            $rates = RoomUsed::with($relation)->where('id_room', $id)->get();
+            $rates = RoomUsed::with($relation)->where($type_id, $id)->get();
             $avgPoint = $this->getTotalAvg($rates, $relation);
         } else {
-            $rates = RoomUsed::with($relation)->where('id_room', $id)->limit($limit)->get();
-            $rateAll = RoomUsed::with($relation)->where('id_room', $id)->get();
+            $rates = RoomUsed::with($relation)->where($type_id, $id)->limit($limit)->get();
+            $rateAll = RoomUsed::with($relation)->where($type_id, $id)->get();
             $avgPoint = $this->getTotalAvg($rateAll, $relation);
         }
         $users = User::all();

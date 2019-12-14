@@ -131,9 +131,6 @@
             $("#rate").click(function(){
             $( "#forrate").slideToggle("slow");
             });
-             for (let i = 1; $i <6; $i++) {
-
-             }
          });
 
     </script>

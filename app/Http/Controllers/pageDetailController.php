@@ -26,7 +26,7 @@ class pageDetailController extends Controller
          * @return \Illuminate\Http\Response
          */
     public function index($id) {
-        $dataRate = $this->rateService->getInformationRate('roomRate', $id, config('ourhome.limit'));
+        $dataRate = $this->rateService->getInformationRate('roomRate', $id, 'id_room', config('ourhome.limit'));
         $detail = Rooms::find($id);
         $photos = Photo::where('id_room', $id)->first();
         $photos1 = Photo::where('id_room', $id)->get();
@@ -86,7 +86,7 @@ class pageDetailController extends Controller
     public function rate($id)
     {
         $detail = Rooms::find($id);
-        $dataRate = $this->rateService->getInformationRate('roomRate', $id);
+        $dataRate = $this->rateService->getInformationRate('roomRate', $id, 'id_room');
 
         return view('theme.rateRoom', [
             'detail' => $detail,
