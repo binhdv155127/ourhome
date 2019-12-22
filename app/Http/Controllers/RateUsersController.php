@@ -3,83 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\rate_users;
+use App\Rooms;
+use App\RoomUsed;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Redirect;
 
 class RateUsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $req)
     {
-        //
-    }
+        if(Auth::user()){
+            $checkRoom = Rooms::where('id_user',Auth::user()->id)->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+            for ($i=0; $i < count($checkRoom) ; $i++) { 
+                $RoomUsed = RoomUsed::where('id_user',$req->user_id)->where('id_room',$checkRoom[$i]->id)->get();
+            }  
+        }
+        $RateUser = new rate_users;
+        $RateUser->id_roomused = $RoomUsed[0]->id;
+        $RateUser->point = $req->point;
+        $RateUser->content = $req->content;
+        $RateUser->save();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\rate_users  $rate_users
-     * @return \Illuminate\Http\Response
-     */
-    public function show(rate_users $rate_users)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\rate_users  $rate_users
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(rate_users $rate_users)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\rate_users  $rate_users
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, rate_users $rate_users)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\rate_users  $rate_users
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(rate_users $rate_users)
-    {
-        //
+        return Redirect::back();
     }
 }

@@ -56,6 +56,7 @@
                         </div>
                         <input type="hidden" name="mail" value="{{$user->email}}">
                         <input type="hidden" name="name" value="{{$user->name}}">
+                        <input type="hidden" name="id_user" value="{{$user->id}}">
                         <button type="submit" class="btn btn-success" style=" margin-top: 20px; padding: 10px 40px;margin-left: 290px;">Gửi</button>
                     </form>
                     </div>

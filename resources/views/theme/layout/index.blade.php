@@ -15,12 +15,26 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="theme/style.css">
     <link rel="stylesheet" href="{{ asset('theme/css/ourhome.css') }}">
+    
+    @yield('link')
     <style>
         .show{
             opacity: 1;
             visibility: visible;
 
         }
+        .animated {
+    -webkit-transition: height 0.2s;
+    -moz-transition: height 0.2s;
+    transition: height 0.2s;
+}
+
+.stars
+{
+    margin: 20px 0;
+    font-size: 24px;
+    color: #d17581;
+}
     </style>
     <style>
         .col-md-8{

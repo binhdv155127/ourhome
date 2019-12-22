@@ -18,5 +18,5 @@ class RateRoom extends Model
     {
         return $this->belongsToMany('App\Rooms', 'room_useds', 'id_room', 'id_user');
     }
-
+    public $timestamps = false;
 }

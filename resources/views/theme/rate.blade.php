@@ -60,7 +60,11 @@
                                                                 {{ $avgPoint }}
                                                                 <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                                             </p>
-                                                            <button class="btn btn-success" style=" margin-left: 22px;" id="rate">Gửi đánh giá của bạn</button>
+                                                            @if(count($checkRateRoom)>0)
+                                                            @if(count($checkRateRoom2)==0)
+                                                               <button class="btn btn-success" style=" margin-left: 22px;" id="rate">Gửi đánh giá của bạn</button>
+                                                            @endif
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -71,22 +75,29 @@
                                 <!-- Leave A Reply -->
                                 <div class="rehomes-contact-form mt-50 mb-5 mb-lg-0 wow fadeInUp" data-wow-delay="200ms" style="visibility: visible;animation-delay: 200ms;animation-name: fadeInUp;border: 1px solid gainsboro;border-radius: 10px;margin-top: -75px;padding: 20px;" id="forrate">
                                     <h4 class="mb-30">Gửi đánh giá</h4>
-                                    <form class="#" method="post">
+                                    <form action="rate/user" method="post">
+                                        @csrf
                                         <div class="row">
                                             <div class="col-12">
-                                                <p>Chọn đánh giá của bạn:
-                                                    @for ($i = 1; $i <6; $i++)
-                                                        <i class="fa fa-star" aria-hidden="true" id={{ "star" . $i}}></i>
-                                                    @endfor
+                                                <p>Chọn đánh giá của bạn:   
                                                 </p>
-                                                <input type="text" name="message-name" class="form-control mb-30" placeholder="Nhập đánh giá về người cho ở ghép">
-                                                <button type="submit" class="btn rehomes-btn mt-15">Gửi đánh giá</button>
+                                                <div align="center" style="color:white;margin-top: -45px;">
+                                                    <i class="fa fa-star fa-2x" data-index="1"></i>
+                                                    <i class="fa fa-star fa-2x" data-index="2"></i>
+                                                    <i class="fa fa-star fa-2x" data-index="3"></i>
+                                                    <i class="fa fa-star fa-2x" data-index="4"></i>
+                                                    <i class="fa fa-star fa-2x" data-index="5"></i>
+                                                    <br><br>
+                                                </div>
+                                                <input type="hidden" name="point" id="rate1">
+                                                <input type="hidden" name="user_id" value="{{$person->id}}">
+                                                <input type="text" name="content" class="form-control mb-30 content" placeholder="Nhập đánh giá về người cho ở ghép">
+                                                <button type="submit" id="rate" class="btn rehomes-btn mt-15 rate">Gửi đánh giá</button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-
                             <!-- Comments Area -->
                             <div class="comment_area clearfix">
                                 <ol>
@@ -133,5 +144,44 @@
             });
          });
 
+    </script>
+     <script>
+        var ratedIndex = -1, uID = 0;
+
+        $(document).ready(function () {
+            resetStarColors();
+
+            $('.fa-star').on('click', function () {
+               ratedIndex = parseInt($(this).data('index'));
+               localStorage.setItem('ratedIndex', ratedIndex);s
+            });
+            $('.fa-star').mouseover(function () {
+                resetStarColors();
+                var currentIndex = parseInt($(this).data('index'));
+                setStars(currentIndex);
+            });
+
+            $('.fa-star').mouseleave(function () {
+                resetStarColors();
+
+                if (ratedIndex != -1)
+                    setStars(ratedIndex);
+            });
+
+            $('.rate').click(function(){
+               let point = ratedIndex;
+             document.getElementById('rate1').value= point ;
+            });
+
+        });
+
+        function setStars(max) {
+            for (var i=1; i <= max; i++)
+                $('.fa-star:eq('+i+')').css('color', 'yellow');
+        }
+
+        function resetStarColors() {
+            $('.fa-star').css('color', 'gray');
+        }
     </script>
 @endsection

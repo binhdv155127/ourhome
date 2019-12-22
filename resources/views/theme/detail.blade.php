@@ -164,14 +164,42 @@
                                                         <h4 class="mb-30">Đánh giá
                                                             <i style="font-size: 14px;color: gray;margin-left: 30px;">Sao trung bình:</i>
                                                             <i>{{ $avgPoint }}</i>
-                                                            <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                            <a href="rateroom/{{$detail->id}}">
-                                                                <button class="btn btn-success" style="margin-left: 425px;margin-top: -85px;">Xem tất cả đánh giá</button>
-                                                            </a>
+                                                            <i class="fa fa-star" aria-hidden="true" style="color: #ffc107 !important;"></i>
+                                                            @if(count($checkRateRoom)>0)
+                                                            @if(count($checkRateRoom2)==0)
+
+                                                                <button class="btn btn-success" style="margin-left: 497px;margin-top: -85px;" id="rate">Thêm đánh giá</button>
+                                                            @endif
+                                                            @endif
                                                         </h4>
                                                     </div>
-                                                    @if (!empty($rates))
-                                                        <ol>
+                                                    <!-- Leave A Reply -->
+                                                    <div class="rehomes-contact-form mt-50 mb-5 mb-lg-0 wow fadeInUp" data-wow-delay="200ms" style="visibility: visible;animation-delay: 200ms;animation-name: fadeInUp;border: 1px solid gainsboro;border-radius: 10px;margin-top: -75px;padding: 20px;" id="forrate">
+                                                        <h5 class="mb-30">Gửi đánh giá</h5>
+                                                        <form action="rate/room" method="post">
+                                                            @csrf
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <p>Chọn đánh giá của bạn:   
+                                                                    </p>
+                                                                    <div align="center" style="color:white;margin-top: -45px;">
+                                                                        <i class="fa fa-star fa-2x" data-index="1"></i>
+                                                                        <i class="fa fa-star fa-2x" data-index="2"></i>
+                                                                        <i class="fa fa-star fa-2x" data-index="3"></i>
+                                                                        <i class="fa fa-star fa-2x" data-index="4"></i>
+                                                                        <i class="fa fa-star fa-2x" data-index="5"></i>
+                                                                        <br><br>
+                                                                    </div>
+                                                                    <input type="hidden" name="id_room" value="{{$detail->id}}" class="id_room">
+                                                                    <input type="hidden" name="point" id="rate1">
+                                                                    <input type="text" name="content" class="form-control mb-30 content" placeholder="Nhập đánh giá về người cho ở ghép">
+                                                                    <button type="submit" id="rate" class="btn rehomes-btn mt-15 rate">Gửi đánh giá</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    @if ($avgPoint != 0)
+                                                        <ol style="margin-top: 25px;">
                                                             @foreach ($rates as $rate)
                                                                 @foreach ($rate->roomRate as $roomRate)
                                                                 <!-- Single Comment Area -->
@@ -202,6 +230,11 @@
                                                         <div class="text-center">Không có đánh giá nào</div>
                                                     @endif
                                                 </div>
+                                                    <a href="rateroom/{{$detail->id}}" style="color: blue;margin-left: 450px;">
+                                                        <i class="fa fa-angle-double-right"></i>
+                                                        <i class="fa fa-angle-double-right"></i>
+                                                        Xem tất cả đánh giá
+                                                    </a>
                                             </div>
                                         </div>
                                     </div>
@@ -371,6 +404,13 @@
 @endsection
 @section('script')
 <script>
+     $(document).ready(function(){
+        $("#rate").click(function(){
+        $( "#forrate").slideToggle();
+        });
+     });
+</script>
+<script>
 
 	var map;
 	function initMap() {
@@ -462,4 +502,44 @@ async defer></script>
         });
     });
 </script>
+ <script src="http://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+    <script>
+        var ratedIndex = -1, uID = 0;
+
+        $(document).ready(function () {
+            resetStarColors();
+
+            $('.fa-star').on('click', function () {
+               ratedIndex = parseInt($(this).data('index'));
+               localStorage.setItem('ratedIndex', ratedIndex);s
+            });
+            $('.fa-star').mouseover(function () {
+                resetStarColors();
+                var currentIndex = parseInt($(this).data('index'));
+                setStars(currentIndex);
+            });
+
+            $('.fa-star').mouseleave(function () {
+                resetStarColors();
+
+                if (ratedIndex != -1)
+                    setStars(ratedIndex);
+            });
+
+            $('.rate').click(function(){
+               let point = ratedIndex;
+             document.getElementById('rate1').value= point ;
+            });
+
+        });
+
+        function setStars(max) {
+            for (var i=1; i <= max; i++)
+                $('.fa-star:eq('+i+')').css('color', 'yellow');
+        }
+
+        function resetStarColors() {
+            $('.fa-star').css('color', 'gray');
+        }
+    </script>
 @endsection

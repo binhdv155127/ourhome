@@ -12,4 +12,5 @@ class rate_users extends Model
     {
         return $this->belongsTo('App\RoomUsed', 'id_roomused', 'id');
     }
+    public $timestamps = false;
 }

@@ -10,6 +10,7 @@ use App\User;
 use App\Wards;
 use Illuminate\Http\Request;
 use App\Service\RateService;
+use Illuminate\Support\Facades\Auth;
 
 class pageDetailController extends Controller
 {
@@ -26,6 +27,18 @@ class pageDetailController extends Controller
          * @return \Illuminate\Http\Response
          */
     public function index($id) {
+        if(Auth::user()){
+            $checkRateRoom = RoomUsed::where('id_user',Auth::user()->id)->where('id_room',$id)->get();
+        }else{
+            $checkRateRoom = [];
+        }
+
+        if(count($checkRateRoom)>0){
+            $checkRateRoom2 = RateRoom::where('id_roomused',$checkRateRoom[0]->id)->get();
+        }else{
+            $checkRateRoom2 = [];
+        }
+
         $dataRate = $this->rateService->getInformationRate('roomRate', $id, 'id_room', config('ourhome.limit'));
         $detail = Rooms::find($id);
         $photos = Photo::where('id_room', $id)->first();
@@ -42,6 +55,8 @@ class pageDetailController extends Controller
             'rates' => $dataRate['rates'],
             'getUserNames' => $dataRate['getUserNames'],
             'avgPoint' => $dataRate['avgPoint'],
+            'checkRateRoom' => $checkRateRoom,
+            'checkRateRoom2' => $checkRateRoom2,
         ]);
     }
 
@@ -88,11 +103,25 @@ class pageDetailController extends Controller
         $detail = Rooms::find($id);
         $dataRate = $this->rateService->getInformationRate('roomRate', $id, 'id_room');
 
+        if(Auth::user()){
+            $checkRateRoom = RoomUsed::where('id_user',Auth::user()->id)->where('id_room',$id)->get();
+        }else{
+            $checkRateRoom = [];
+        }
+        if(count($checkRateRoom)>0){
+            $checkRateRoom2 = RateRoom::where('id_roomused',$checkRateRoom[0]->id)->get();
+        }else{
+            $checkRateRoom2 = [];
+        }
+        
+        
         return view('theme.rateRoom', [
             'detail' => $detail,
             'rates' => $dataRate['rates'],
             'getUserNames' => $dataRate['getUserNames'],
             'avgPoint' => $dataRate['avgPoint'],
+            'checkRateRoom' => $checkRateRoom,
+            'checkRateRoom2' => $checkRateRoom2,
         ]);
     }
 

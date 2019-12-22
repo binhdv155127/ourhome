@@ -22,4 +22,5 @@ class RoomUsed extends Model
     {
         return $this->belongsTo('App\User', 'id_user', 'id')->withDefault();
     }
+    public $timestamps = false;
 }

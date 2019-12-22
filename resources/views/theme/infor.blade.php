@@ -136,21 +136,25 @@
                                                                 </div>
                                                                 <div class="content" style="margin-left: 260px;width: 570px;">
                                                                     <a href="room/{{$item->id}}">
-                                                                        <h5>{{ $item->title }}</h5>
+                                                                        <h5 style="white-space: nowrap;
+                                                              overflow: hidden;
+                                                              text-overflow: Ellipsis;
+                                                              max-width: 500px;">{{ $item->title }}</h5>
                                                                     </a>
                                                                     <P>Người đăng: {{$item->user->username}}</P>
                                                                     <p>Giá : {{ number_format($item->price) }} VND</p>
-                                                                    <p>Đánh giá :
-                                                                        <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                                        <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                                        <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                                        <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
-                                                                        <i class="fa fa-star-o" aria-hidden="true" ></i>
+                                                                    <p>Địa chỉ: 
                                                                     </p>
                                                                 </div>
+                                                                @if($item->accept == 1)
                                                                 <div class="quantam" style="margin-left: 750px;margin-top: -100px;">
-                                                                <p class="btn btn-success" style="padding: 13px;" id="qt{{$key}}" >Người quan tâm tin</p>
+                                                                <p class="btn btn-success" style="padding: 13px;margin-left: 30px;" id="qt{{$key}}" >Người quan tâm tin</p>
                                                                 </div>
+                                                                @else
+                                                                <div class="quantam" style="margin-left: 750px;margin-top: -100px;">
+                                                                <p class="btn btn-danger" style="padding: 13px;margin-left: 30px;    width: 159px;"  >Chờ kiểm duyệt</p>
+                                                                </div>
+                                                                @endif
                                                             </div>
 
                                                         <div class="rehomes-comment-form mb-80 wow fadeInUp ngqt" data-wow-delay="200ms" id="ngqt{{$key}}">
@@ -158,8 +162,7 @@
                                                             <!-- Form -->
                                                             <div class="#">
                                                                 <div class="row">
-                                                                    @foreach ($item->users as $user)
-
+                                                                    @foreach ($item->users1 as $user)
                                                                     <!-- Single Agent Area -->
                                                                         <div class="col-12 col-md-4 col-lg-4">
                                                                         <div class="single-agent-area wow fadeInUp" data-wow-delay="200ms">
@@ -168,20 +171,31 @@
                                                                                 <img src="theme/img/bg-img/49.jpg" alt="">
                                                                             </div>
                                                                             <!-- Agent Info -->
-                                                                            <div class="agent-info"style="background: #faebd7ad;">
+                                                                            <div class="agent-info"style="background: #faebd747;">
                                                                                 <a href="#">{{ $user->name }}</a>
                                                                                 <p><i class="fa fa-user-circle-o" aria-hidden="true"></i> Giới tính:  </p>
                                                                                 <p><i class="fa fa-address-book" aria-hidden="true"></i> Tuổi:</p>
                                                                                 <p><i class="fa fa-skype" aria-hidden="true"></i>Địa Chỉ: {{ $user->address }}</p>
                                                                             </div>
                                                                             <!-- Agent Social Info -->
-                                                                            <div class="agent-social-info d-flex"style="background: #00000040;height: 55px;">
-                                                                                <a href="user/meeting/{{ $user->id }}">
-                                                                                    <p class="btn btn-success" style="width: 140px;border-radius: inherit;height: 55px;padding-top: 16px;"> Chấp nhận</p>
-                                                                                </a>
-                                                                                @if (!empty($user->pivot->status))
-                                                                                    <button class="btn btn-danger" style="margin-left: 77px;width: 176px;border-radius: inherit;" data-toggle="modal" data-target="#myModal">Muốn kết nối với bạn</button>
-                                                                                @endif
+                                                                            <div class="agent-social-info d-flex"style="background: #00000040;height: 55px;    justify-content: center;">
+                                                                            @if ($user->pivot->status == 2)
+                                                                                 <form action="roomused/rent/{{$user->id}}" method="POST" style="width: -webkit-fill-available;">
+                                                                                    @csrf
+                                                                                   <input type="hidden" name="id_user" value="{{$user->id}}">
+                                                                                   <input type="hidden" name="id_room" value="{{$item->id}}">
+                                                                                   <button class="btn btn-warning" style="width: 140px;border-radius: inherit;height: -webkit-fill-available;    width: -webkit-fill-available;"> Cho thuê</button>
+                                                                                </form>
+                                                                            @elseif ($user->pivot->status == 3)
+                                                                                <button class="btn btn-danger" style="width: 140px;border-radius: inherit;width: -webkit-fill-available;">Đã cho thuê</button>
+                                                                            @else
+                                                                                <form action="roomused/{{$user->id}}" method="POST" style="width: -webkit-fill-available;">
+                                                                                    @csrf
+                                                                                   <input type="hidden" name="id_user" value="{{$user->id}}">
+                                                                                   <input type="hidden" name="id_room" value="{{$item->id}}">
+                                                                                   <button class="btn btn-success" style="width: 140px;border-radius: inherit;height: -webkit-fill-available;    width: -webkit-fill-available;"> Chấp nhận</button>
+                                                                                </form>
+                                                                            @endif
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -206,11 +220,11 @@
                                             <i>{{ $avgPoint }}</i>
                                             <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                             <a href="rate/{{$person['0']['id']}}">
-                                                <button class="btn btn-success" style="margin-left: 425px;margin-top: -85px;">Xem tất cả đánh giá</button>
+                                                <button class="btn btn-success" style="margin-left: 440px">Xem tất cả đánh giá</button>
                                             </a>
                                         </h4>
                                     </div>
-                                    @if (!empty($rates))
+                                    @if ($avgPoint != 0)
                                         <ol>
                                             @foreach ($rates as $rate)
                                                 @foreach ($rate->userRate as $userRate)

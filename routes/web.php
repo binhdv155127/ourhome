@@ -24,6 +24,9 @@ Route::get('person/{id}/{slugs}.html','personController@user');
 Route::get('rate/{id}','personController@rate');
 Route::get('rateroom/{id}','pageDetailController@rate');
 
+Route::post('rate/room','RateRoomController@index')->name('rateroom');
+Route::post('rate/user','RateUsersController@index')->name('rateuser');
+
 Route::get('modifyinfor/{id}/{slugs}.html','personController@update');
 Route::post('modifyinfor/{id}','personController@postUpdate');
 
@@ -41,7 +44,8 @@ Route::get('logout','personController@logOut');
 Route::get('user/news','postNewsController@new');
 Route::post('user/news','postNewsController@postnew');
 
-
+Route::post('roomused/{id}','RoomUsedController@index');
+Route::post('roomused/rent/{id}','RoomUsedController@rent');
 
 
 

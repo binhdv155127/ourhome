@@ -48,7 +48,10 @@
                                                             <a href="room/">
                                                                 <h6>{{ $detail->title }}</h6>
                                                             </a>
-                                                            <P>Địa chỉ: {{ $detail->area }}</P>
+                                                            <P style="white-space: nowrap;
+                                                              overflow: hidden;
+                                                              text-overflow: Ellipsis;
+                                                              max-width: 250px;" >Địa chỉ: {{ $detail->area }}</P>
                                                             <p>Giá : {{ number_format($detail->price) }} VND/tháng</p>
                                                             <a href="room/{{$detail->id}}/{{$detail->slugs}}.html"><button class="btn btn-warning" style=" margin-top: -10px;">Chi tiết</button></a>
                                                         </div>
@@ -60,7 +63,12 @@
                                                                 {{ $avgPoint }}
                                                                 <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                                             </p>
-                                                            <button class="btn btn-success" style=" margin-left: 22px;" id="rate">Gửi đánh giá của bạn</button>
+                                                            @if(count($checkRateRoom)>0)
+                                                            @if(count($checkRateRoom2)==0)
+                                                               <button class="btn btn-success" style=" margin-left: 22px;" id="rate">Gửi đánh giá của bạn</button>
+                                                            @endif
+                                                            @endif
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -71,18 +79,24 @@
                                 <!-- Leave A Reply -->
                                 <div class="rehomes-contact-form mt-50 mb-5 mb-lg-0 wow fadeInUp" data-wow-delay="200ms" style="visibility: visible;animation-delay: 200ms;animation-name: fadeInUp;border: 1px solid gainsboro;border-radius: 10px;margin-top: -75px;padding: 20px;" id="forrate">
                                     <h4 class="mb-30">Gửi đánh giá</h4>
-                                    <form class="#" method="post">
+                                    <form action="rate/room" method="post">
+                                        @csrf
                                         <div class="row">
                                             <div class="col-12">
-                                                <p>Chọn đánh giá của bạn:
-                                                    <i class="fa fa-star-o" aria-hidden="true" ></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true" ></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true" ></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true" ></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true" ></i>
+                                                <p>Chọn đánh giá của bạn:   
                                                 </p>
-                                                <input type="text" name="message-name" class="form-control mb-30" placeholder="Nhập đánh giá về người cho ở ghép">
-                                                <button type="submit" class="btn rehomes-btn mt-15">Gửi đánh giá</button>
+                                                <div align="center" style="color:white;margin-top: -45px;">
+                                                    <i class="fa fa-star fa-2x" data-index="1"></i>
+                                                    <i class="fa fa-star fa-2x" data-index="2"></i>
+                                                    <i class="fa fa-star fa-2x" data-index="3"></i>
+                                                    <i class="fa fa-star fa-2x" data-index="4"></i>
+                                                    <i class="fa fa-star fa-2x" data-index="5"></i>
+                                                    <br><br>
+                                                </div>
+                                                <input type="hidden" name="id_room" value="{{$detail->id}}" class="id_room">
+                                                <input type="hidden" name="point" id="rate1">
+                                                <input type="text" name="content" class="form-control mb-30 content" placeholder="Nhập đánh giá về người cho ở ghép">
+                                                <button type="submit" id="rate" class="btn rehomes-btn mt-15 rate">Gửi đánh giá</button>
                                             </div>
                                         </div>
                                     </form>
@@ -136,5 +150,44 @@
             $( "#forrate").slideToggle();
             });
          });
+    </script>
+    <script>
+        var ratedIndex = -1, uID = 0;
+
+        $(document).ready(function () {
+            resetStarColors();
+
+            $('.fa-star').on('click', function () {
+               ratedIndex = parseInt($(this).data('index'));
+               localStorage.setItem('ratedIndex', ratedIndex);s
+            });
+            $('.fa-star').mouseover(function () {
+                resetStarColors();
+                var currentIndex = parseInt($(this).data('index'));
+                setStars(currentIndex);
+            });
+
+            $('.fa-star').mouseleave(function () {
+                resetStarColors();
+
+                if (ratedIndex != -1)
+                    setStars(ratedIndex);
+            });
+
+            $('.rate').click(function(){
+               let point = ratedIndex;
+             document.getElementById('rate1').value= point ;
+            });
+
+        });
+
+        function setStars(max) {
+            for (var i=1; i <= max; i++)
+                $('.fa-star:eq('+i+')').css('color', 'yellow');
+        }
+
+        function resetStarColors() {
+            $('.fa-star').css('color', 'gray');
+        }
     </script>
 @endsection

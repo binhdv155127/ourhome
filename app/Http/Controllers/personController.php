@@ -6,6 +6,7 @@ use App\Rooms;
 use App\RoomCare;
 use App\RoomUsed;
 use App\User;
+use App\rate_users;
 use App\Service\RateService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class personController extends Controller
     public function user($id)
     {
         $person = User::where('id', $id)->get();
-        $rooms = Rooms::where('id_user', $id)->with(['users'])->get();
+        $rooms = Rooms::where('id_user', $id)->with(['users1','room_used'])->get();
         $dataRate = $this->rateService->getInformationRate('userRate', $id, 'id_user', config('ourhome.limit'));
 
         return view('theme.infor', [
@@ -43,6 +44,7 @@ class personController extends Controller
             'rates' => $dataRate['rates'],
             'getUserNames' => $dataRate['getUserNames'],
             'avgPoint' => $dataRate['avgPoint'],
+            
         ]);
     }
 
@@ -51,11 +53,27 @@ class personController extends Controller
         $person = User::where('id', $id)->first();
         $dataRate = $this->rateService->getInformationRate('userRate', $id, 'id_user');
 
+        if(Auth::user()){
+            $checkRoom = Rooms::where('id_user',Auth::user()->id)->get();
+            for ($i=0; $i < count($checkRoom) ; $i++) { 
+                $checkRateRoom = RoomUsed::where('id_user',$id)->where('id_room',$checkRoom[$i]->id)->get();
+            }  
+        }else{
+            $checkRateRoom = [];
+        }
+        
+        if(count($checkRateRoom)>0){
+            $checkRateRoom2 = rate_users::where('id_roomused',$checkRateRoom[0]->id)->get();
+        }else{
+            $checkRateRoom2 = [];
+        }
         return view('theme.rate', [
             'person' => $person,
             'rates' => $dataRate['rates'],
             'getUserNames' => $dataRate['getUserNames'],
             'avgPoint' => $dataRate['avgPoint'],
+            'checkRateRoom' => $checkRateRoom,
+            'checkRateRoom2' => $checkRateRoom2,
         ]);
     }
 
