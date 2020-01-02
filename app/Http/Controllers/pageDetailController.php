@@ -82,10 +82,10 @@ class pageDetailController extends Controller
             $findRoom = Rooms::where('id_roomtype', $request->types)
                 ->orWhere('id_district', $request->district)
                 ->orWhere('id_ward', $request->ward)
-                ->whereBetween('price', [$a, $b])->paginate(6);
+                ->whereBetween('price', [$a, $b])->paginate(9);
             //-> whereBetween('area',[$c,$d])
         } else {
-            $findRoom = Rooms::paginate(5);
+            $findRoom = Rooms::paginate(9);
         }
 
         return view('theme.search', compact('findRoom'));

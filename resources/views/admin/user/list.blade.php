@@ -68,6 +68,11 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="container">
+                <div class="row">
+                    {{$user->links()}}
+                </div>
+                </div>
             </div>
         </div>
     </div>

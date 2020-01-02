@@ -105,6 +105,7 @@ class personController extends Controller
           $user->gender = $request->gender;
           $user->address = $request->address;
           $user->content = $request->content;
+          $user->updt = 1;
           $user->updated_at = Carbon::now();
 
         if($request->password != ''){
@@ -171,9 +172,13 @@ class personController extends Controller
 
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect('/');
+            if(Auth::user()->updt == 0){
+                return redirect('/modifyinfor/'.Auth::user()->id)->with('tb', 'Bạn cần phải cập nhật thông tin cá nhân');
+            } else{
+                return redirect('/');
+            }
         } else {
-            return redirect('login')->with('thongbao', 'dang nhập ko thành công xin kiểm tra lại');
+            return redirect('login')->with('thongbao', 'Đăng nhập không thành công xin kiểm tra lại');
         }
     }
 
@@ -212,9 +217,14 @@ class personController extends Controller
         $data['slugs'] = Str::slug($data['name'], '-');
         $data['deleted_at'] = 0;
         $data['auth'] = 0;
+        $data['updt'] = 0;
         User::create($data);
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect('/');
+            if(Auth::user()->updt == 0){
+                return redirect('/modifyinfor/'.Auth::user()->id)->with('tb', 'Bạn cần phải cập nhật thông tin cá nhân');
+            } else{
+                return redirect('/');
+            }
         }
     }
 }

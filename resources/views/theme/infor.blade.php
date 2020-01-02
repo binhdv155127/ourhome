@@ -35,20 +35,24 @@
                         <div class="information-content">
                             <ul class="d-flex flex-wrap" style="padding-top: 10px;
                             padding-bottom: 10px; border-bottom: 1px solid #80808075">
-                                <li><span>Họ và tên:</span> </li><li style=" margin-left: -60px;"><span>{{$person['0']['username']}}</span></li>
+                                <li><span>Họ và tên:</span> </li><li style=" margin-left: -60px;"><span>{{$person['0']['name']}}</span></li>
                             </ul>
                             <ul class="d-flex flex-wrap" style="padding-top: 10px;
                             padding-bottom: 10px; border-bottom: 1px solid #80808075">
-                                <li><span>Đại chỉ</span> </li><li style=" margin-left: -60px;"><span>{{$person['0']['address']}}</span></li>
+                                <li><span>Địa chỉ</span> </li><li style=" margin-left: -60px;"><span>{{$person['0']['address']}}</span></li>
                             </ul>
+                            @if(Auth::user())
+                            @if(Auth::user()->id == $person['0']['id'])
                             <ul class="d-flex flex-wrap" style="padding-top: 10px;
                             padding-bottom: 10px; border-bottom: 1px solid #80808075" >
-                                <li><span>số điện thoại</span> </li><li style=" margin-left: -60px;"><span>{{$person['0']['phonenumber']}}</span></li>
+                                <li><span>Số điện thoại</span> </li><li style=" margin-left: -60px;"><span>{{$person['0']['phonenumber']}}</span></li>
                             </ul>
                             <ul class="d-flex flex-wrap" style="padding-top: 10px;
                             padding-bottom: 10px; border-bottom: 1px solid #80808075" >
                                 <li><span>Email</span></li><li style=" margin-left: -60px;"> <span>{{$person['0']['email']}}</span></li>
                             </ul>
+                            @endif
+                            @endif
                             <ul class="d-flex flex-wrap" style="padding-top: 10px;
                             padding-bottom: 10px; border-bottom: 1px solid #80808075" >
                                 <li><span>Ngày sinh</span> </li><li style=" margin-left: -60px;"><span>{{$person['0']['birthday']}}</span></li>
@@ -81,19 +85,23 @@
                 <!-- Sidebar Area -->
                 <div class="col-12 col-md-6 col-lg-4 col-xl-3">
                     <div class="rehomes-property-sidebar-area">
-
                         <!-- Property Search Form -->
-                        <div class="property-search-form-area mb-80 wow fadeInUp" data-wow-delay="200ms">
+                        @if(Auth::user())
+                           @if(Auth::user()->id == $person['0']['id'])
+                           <div class="property-search-form-area mb-80 wow fadeInUp" data-wow-delay="200ms">
                             <form action="#" method="get">
                                 <div class="row">
                                     <div class="col-12">
-                                        <a href="modifyinfor/{{$person['0']['id']}}/{{$person['0']['slugs']}}.html">
+                                        <!-- /{{$person['0']['slugs']}}.html -->
+                                        <a href="modifyinfor/{{$person['0']['id']}}">
                                             <button type="button" class="btn rehomes-btn mt-15 w-100" style="margin-top: 65px;">Cập nhật thông tin</button>
                                         </a>
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                            </div>
+                        @endif
+                        @endif
                     </div>
                 </div>
             </div>
@@ -135,17 +143,22 @@
                                                                     <img src="theme/img/bg-img/{{ $item->photo[0]['name'] }}" alt="" style="height: 150px;">
                                                                 </div>
                                                                 <div class="content" style="margin-left: 260px;width: 570px;">
-                                                                    <a href="room/{{$item->id}}">
+                                                                    <a href="room/{{$item->id}}/{{$item->slugs}}.html">
                                                                         <h5 style="white-space: nowrap;
                                                               overflow: hidden;
                                                               text-overflow: Ellipsis;
                                                               max-width: 500px;">{{ $item->title }}</h5>
                                                                     </a>
-                                                                    <P>Người đăng: {{$item->user->username}}</P>
+                                                                    <P>Người đăng: {{$item->user->name}}</P>
                                                                     <p>Giá : {{ number_format($item->price) }} VND</p>
-                                                                    <p>Địa chỉ: 
+                                                                    <p style="white-space: nowrap;
+                                                              overflow: hidden;
+                                                              text-overflow: Ellipsis;
+                                                              max-width: 500px;">Địa chỉ: {{$item->user->address}}
                                                                     </p>
                                                                 </div>
+                                                                @if(Auth::user())
+                                                                @if(Auth::user()->id == $item->user->id)
                                                                 @if($item->accept == 1)
                                                                 <div class="quantam" style="margin-left: 750px;margin-top: -100px;">
                                                                 <p class="btn btn-success" style="padding: 13px;margin-left: 30px;" id="qt{{$key}}" >Người quan tâm tin</p>
@@ -154,6 +167,8 @@
                                                                 <div class="quantam" style="margin-left: 750px;margin-top: -100px;">
                                                                 <p class="btn btn-danger" style="padding: 13px;margin-left: 30px;    width: 159px;"  >Chờ kiểm duyệt</p>
                                                                 </div>
+                                                                @endif
+                                                                @endif
                                                                 @endif
                                                             </div>
 
@@ -168,14 +183,19 @@
                                                                         <div class="single-agent-area wow fadeInUp" data-wow-delay="200ms">
                                                                             <!-- Agent Thumb -->
                                                                             <div class="single-agent-thumb">
-                                                                                <img src="theme/img/bg-img/49.jpg" alt="">
+                                                                                <img src="theme/img/bg-img/{{$user->avatar}}" alt="">
                                                                             </div>
                                                                             <!-- Agent Info -->
                                                                             <div class="agent-info"style="background: #faebd747;">
                                                                                 <a href="#">{{ $user->name }}</a>
-                                                                                <p><i class="fa fa-user-circle-o" aria-hidden="true"></i> Giới tính:  </p>
-                                                                                <p><i class="fa fa-address-book" aria-hidden="true"></i> Tuổi:</p>
+                                                                                <p><i class="fa fa-user-circle-o" aria-hidden="true"></i> Giới tính: @if($user->gender == 1) nam @else nữ @endif</p>
+                                                                                <p><i class="fa fa-address-book" aria-hidden="true"></i> Ngày sinh:{{ $user->birthday }} </p>
                                                                                 <p><i class="fa fa-skype" aria-hidden="true"></i>Địa Chỉ: {{ $user->address }}</p>
+                                                                                @if($user->pivot->status == 1)
+                                                                                <a href="https://zalo.me/0902599087" class="label label-warning" style="background-color: #337ab7; display: inline;padding: .2em .6em .3em;font-size: 80%;font-weight: 700;line-height: 1;color: #fff;text-align: center;white-space: nowrap;vertical-align: baseline;border-radius: .25em;">
+                                                                                    Muốn liên lạc với bạn nhấn click vào đây
+                                                                                </a>
+                                                                                @endif
                                                                             </div>
                                                                             <!-- Agent Social Info -->
                                                                             <div class="agent-social-info d-flex"style="background: #00000040;height: 55px;    justify-content: center;">
@@ -263,31 +283,6 @@
         </div>
         <!-- **** comment **** -->
 
-
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-    <!-- Modal content-->
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Bạn có muốn trao đổi thông tin?</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="container">
-            <img src="theme/img/core-img/zalo.png" class="zalo" alt="" style="height: 80px;margin-left: 190px;" data-toggle="modal" data-target="#myModal1" data-dismiss="modal">
-        </div>
-        <div class="modal-footer">
-        {{-- <a href="https://www.facebook.com/messages/t/ho.tung.90226">
-            <button type="button" class="btn btn-secondary"  style="width: 140px;">Trao đổi</button>
-        </a> --}}
-
-            <button type="button" class="btn btn-primary" style="width: 140px;margin-right: 35%;" data-dismiss="modal">Đóng</button>
-        </div>
-        </div>
-    </div>
-</div>
 @endsection
 @section('script')
     <script>

@@ -42,18 +42,27 @@
                                                 <div class="newp" style="margin-bottom: 30px;border: 1px solid #80808061;height: 174px;padding: 10px;border-radius: 10px;">
                                                     <div class="left" style="float: left;    width: 505px;">
                                                         <div class="anh property-thumb" style=" float: left;">
-                                                            <img src={{ 'theme/img/bg-img/' . $person->avatar . '.jpg' }} alt="" style="height: 150px;">
+                                                            <img src="theme/img/bg-img/{{$person->avatar}}" alt="" style="height: 150px;">
                                                         </div>
                                                         <div class="content" style="margin-left: 260px;">
-                                                            <a href="room/">
+                                                            <a href="person/{{$person->id}}/{{$person->slugs}}.html">
                                                                 <h5>{{ $person->name }}</h5>
                                                             </a>
-                                                            <P>Địa chỉ: {{ $person->address }}</P>
-                                                            <p>Email : {{ $person->email }}</p>
-                                                            <button class="btn btn-warning">Chi tiết</button>
+                                                            <P style="white-space: nowrap;
+                                                              overflow: hidden;
+                                                              text-overflow: Ellipsis;
+                                                              max-width: 500px;">Địa chỉ: {{ $person->address }}</P>
+                                                            <p style="white-space: nowrap;
+                                                              overflow: hidden;
+                                                              text-overflow: Ellipsis;
+                                                              max-width: 500px;">Ngày sinh : {{ $person->birthday }}</p>
+                                                              <a href="person/{{$person->id}}/{{$person->slugs}}.html">
+                                                                  <button class="btn btn-warning">Chi tiết</button>
+                                                              </a>
+                                                            
                                                         </div>
                                                     </div>
-                                                    <div class="right" style="border-left: 1px solid;margin-left: 506px;">
+                                                    <div class="right" style="border-left: 1px solid;margin-left: 506px; height: 160px;">
                                                         <div class="content" style="margin-left: 140px;">
                                                             <h4>Sao trung bình</h4>
                                                             <p style="margin-left: 76px; margin-top: 9px;font-size: 30px; ">

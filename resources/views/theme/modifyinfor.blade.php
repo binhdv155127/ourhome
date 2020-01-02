@@ -51,6 +51,11 @@
                         <span class="text-semibold">Well done!</span>  {{session('thongbao')}}
                     </div>
                     @endif
+                    @if (session('tb'))
+                        <div class="alert alert-danger">
+                                {{session('tb')}}
+                        </div>
+                    @endif
                     <form action="modifyinfor/{{$user->id}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div>
@@ -69,7 +74,7 @@
                         </div>
                         <div>
                             <label>Địa chỉ:</label>
-                            <input type="text" class="form-control" placeholder="Địa chỉ" name="address" value="{{$user->phonenumber}}" required="">
+                            <input type="text" class="form-control" placeholder="Địa chỉ" name="address" value="{{$user->address}}" required="">
                         </div>
                         <br>
                         <div>

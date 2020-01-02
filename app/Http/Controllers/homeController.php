@@ -15,7 +15,10 @@ class homeController extends Controller
      */
     public function index()
     {
-        $news = Rooms::paginate(5);
+        $news = Rooms::where('accept',1)
+               ->where('deleted_at',0)
+               ->orderBy('created_at', 'DESC')
+               ->paginate(9);
         return view('theme.home',['new'=>$news]);
     }
 

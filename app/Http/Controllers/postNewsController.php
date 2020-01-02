@@ -12,6 +12,7 @@ use App\Services;
 use App\Wards;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Redirect;
 
 class postNewsController extends Controller
 {
@@ -24,6 +25,7 @@ class postNewsController extends Controller
 
     public function postnew(Request $request)
     {
+        
         $request->validate([
             'title' => 'required',
             'txtaddress' => 'required',
@@ -40,7 +42,6 @@ class postNewsController extends Controller
         ]);
 
 
-dd($request->file('hinhanh'));
         $rooms = new Rooms;
         $rooms->title = $request->title;
         $rooms->price = $request->txtprice;
@@ -93,6 +94,6 @@ dd($request->file('hinhanh'));
         $services = $request->tienich;
         $rooms->service()->attach($services);
 
-       return redirect('/')->with('thongbao','them thành công');
+       return Redirect::back()->with('thongbao','Vui lòng chờ Admin kiểm duyệt bài đăng');
     }
 }

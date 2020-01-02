@@ -15,7 +15,7 @@
                <a href="room/{{$item->id}}/{{$item->slugs}}.html">
                     <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
                         <!-- Property Thumb -->
-                        <div class="property-thumb">
+                        <div class="property-thumb" style="height: 230px !important;">
                             <img src="theme/img/bg-img/{{ $item->photo[0]['name'] }}" alt="">
                         </div>
 
@@ -25,14 +25,17 @@
                             <div class="property-title-seller d-flex justify-content-between">
                                 <!-- Title -->
                                 <div class="property-title">
-                                    <h4>{{ $item->title }}</h4>
+                                    <h4 style="white-space: nowrap;
+                                                              overflow: hidden;
+                                                              text-overflow: Ellipsis;
+                                                              max-width: 300px;">{{ $item->title }}</h4>
                                     <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{$item->district->districtName}}, Hà Nội</p>
                                 </div>
                                 <!-- Seller -->
-                                <div class="property-seller">
+                                <!-- <div class="property-seller">
                                     <p>Người đăng:</p>
                                     <h6>{{$item->user->username}}</h6>
-                                </div>
+                                </div> -->
                             </div>
                             <!-- Property Info -->
                             <div class="property-info-area d-flex flex-wrap">
@@ -40,13 +43,13 @@
                                 <p>Số người: <span>{{$item->numberpeople}}</span></p>
                             </div>
                             <p>Loại phòng: <span>{{$item->roomType->type}}</span></p>
-                            <p>Đánh giá: <span>
+                            <!-- <p>Đánh giá: <span>
                                     <i class="fa fa-star" aria-hidden="true" style="margin-left: 50px;color: #ffc107;"></i>
                                     <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                     <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                     <i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                     <i class="fa fa-star-o" aria-hidden="true" ></i>
-                                </span></p>
+                                </span></p> -->
                         </div>
 
                         <!-- Property Price -->

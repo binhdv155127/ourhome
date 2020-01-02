@@ -27,7 +27,7 @@ Route::get('rateroom/{id}','pageDetailController@rate');
 Route::post('rate/room','RateRoomController@index')->name('rateroom');
 Route::post('rate/user','RateUsersController@index')->name('rateuser');
 
-Route::get('modifyinfor/{id}/{slugs}.html','personController@update');
+Route::get('modifyinfor/{id}','personController@update');
 Route::post('modifyinfor/{id}','personController@postUpdate');
 
 Route::get('care','RoomCareController@care')->name('care');

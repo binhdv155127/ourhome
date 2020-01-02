@@ -78,7 +78,7 @@
                         <p>số người: <span>{{$detail->numberpeople}}</span></p>
                     </div>
                     <div class="properties-info" style="margin-top: 40px">
-                        <p style="color: red">người đăng:&nbsp;<a href="person/{{$detail->id_user}}"><span>{{$detail->user->name}}</span></a></p>
+                        <p style="color: red">người đăng:&nbsp;<a href="person/{{$detail->id_user}}/{{$detail->slugs}}.html"><span>{{$detail->user->name}}</span></a></p>
                     </div>
                 </div>
             </div>
@@ -208,7 +208,7 @@
                                                                     <div class="comment-content d-flex">
                                                                         <!-- Comment Author -->
                                                                         <div class="comment-author">
-                                                                            <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar'] . '.jpg' }}" alt="author">
+                                                                            <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar']  }}" alt="author">
                                                                         </div>
                                                                         <!-- Comment Meta -->
                                                                         <div class="comment-meta">

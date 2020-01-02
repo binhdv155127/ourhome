@@ -45,7 +45,7 @@
                                                             <img src="theme/img/bg-img/1.jpg" alt="" style="height: 150px;">
                                                         </div>
                                                         <div class="content" style="margin-left: 260px;">
-                                                            <a href="room/">
+                                                            <a href="room/{{$detail->id}}/{{$detail->slugs}}.html">
                                                                 <h6>{{ $detail->title }}</h6>
                                                             </a>
                                                             <P style="white-space: nowrap;
@@ -56,7 +56,7 @@
                                                             <a href="room/{{$detail->id}}/{{$detail->slugs}}.html"><button class="btn btn-warning" style=" margin-top: -10px;">Chi tiết</button></a>
                                                         </div>
                                                     </div>
-                                                    <div class="right" style="border-left: 1px solid;margin-left: 506px;">
+                                                    <div class="right" style="border-left: 1px solid;margin-left: 506px;height: 160px;">
                                                         <div class="content" style="margin-left: 140px;">
                                                             <h4>Sao trung bình</h4>
                                                             <p style="margin-left: 76px; margin-top: 9px;font-size: 30px; ">
@@ -114,7 +114,7 @@
                                         <div class="comment-content d-flex">
                                             <!-- Comment Author -->
                                             <div class="comment-author">
-                                                <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar'] . '.jpg' }}" alt="author">
+                                                <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar']  }}" alt="author">
                                             </div>
                                             <!-- Comment Meta -->
                                             <div class="comment-meta">

@@ -13,7 +13,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Danh sách các phòng ở ghép</h6>
             </div>
             <div class="card-body">
-                <h6>Các Tài khoản được liệt kê tại đây. Dữ liệu đang cập nhật</h6>
+                <h6>Các Bài đăng được liệt kê tại đây. Dữ liệu đang cập nhật</h6>
                 @if(session('thongbao'))
                     <div class="alert bg-success" style="color: white;">
                         <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
@@ -40,9 +40,9 @@
                                 </td>
                                 <td>{{$item->roomType->type}}</td>
                                 <td>
-                                    @if($item->status == 0)
+                                    @if($item->accept == 1)
                                         <span style="background-color: #5cb85c;color: white;padding: .2em .6em .3em;font-size: 75%;font-weight: 700;line-height: 1;text-align: center;white-space: nowrap;vertical-align: baseline;border-radius: .25em;">Đã kiểm duyệt</span>
-                                    @elseif($item->status == 1)
+                                    @elseif($item->accept == 0)
                                         <span style="background-color: #d9534f;color: white;padding: .2em .6em .3em;font-size: 75%;font-weight: 700;line-height: 1;text-align: center;white-space: nowrap;vertical-align: baseline;border-radius: .25em;">Chờ Phê Duyệt</span>
                                     @endif
                                 </td>
@@ -52,9 +52,9 @@
                                     </a>
 
                                     <ul class="dropdown-menu dropdown-menu-right" style="padding: 15px;">
-                                        @if($item->status == 0)
+                                        @if($item->accept == 1)
                                             <li><a href="admin/room/unapprove/{{$item->id}}"><i class="fa fa-toggle-on"></i> Bỏ kiểm duyệt</a></li>
-                                        @elseif($item->status == 1)
+                                        @elseif($item->accept == 0)
                                             <li><a href="admin/room/approve/{{$item->id}}"><i class="fa fa-toggle-on"></i> Kiểm duyệt</a></li>
                                         @endif
                                         
@@ -65,6 +65,12 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                </div>
+                <div class="container">
+                <div class="row">
+                    {{$room->links()}}
+                </div>
                 </div>
             </div>
         </div>

@@ -39,7 +39,12 @@
             <div class="panel panel-default" style="margin-top: 25px; padding: 10px;">
 
                     <div class="panel-body">
-
+                    @if(session('thongbao'))
+                    <div class="alert bg-success" style="color: white;">
+                        <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+                        <span class="text-semibold">Well done!</span>  {{session('thongbao')}}
+                    </div>
+                    @endif
                     <form action="user/news" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div>
