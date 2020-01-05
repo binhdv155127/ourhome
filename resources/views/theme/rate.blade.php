@@ -118,11 +118,11 @@
                                         <div class="comment-content d-flex">
                                             <!-- Comment Author -->
                                             <div class="comment-author">
-                                                <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar'] . '.jpg' }}" alt="author">
+                                                <img src="{{ 'theme/img/bg-img/'.$getUserNames[$rate->id_user]['avatar'] }}" alt="author">
                                             </div>
                                             <!-- Comment Meta -->
                                             <div class="comment-meta">
-                                                <a href="#" class="post-date">{{ $userRate->comment_date }}</a>
+                                               <!--  <a href="#" class="post-date">{{ $userRate->comment_date }}</a> -->
                                                 <h5>{{ $getUserNames[$rate->id_user]['name'] }}
                                                     <i style="margin-left: 30px">{{ $userRate->point }}</i><i class="fa fa-star" aria-hidden="true" style="color: #ffc107;"></i>
                                                 </h5>

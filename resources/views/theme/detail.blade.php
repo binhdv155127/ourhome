@@ -78,7 +78,7 @@
                         <p>số người: <span>{{$detail->numberpeople}}</span></p>
                     </div>
                     <div class="properties-info" style="margin-top: 40px">
-                        <p style="color: red">người đăng:&nbsp;<a href="person/{{$detail->id_user}}/{{$detail->slugs}}.html"><span>{{$detail->user->name}}</span></a></p>
+                        <p style="color: red">người đăng:&nbsp;<a href="person/{{$detail->id_user}}/{{$detail->user->slugs}}.html"><span>{{$detail->user->name}}</span></a></p>
                     </div>
                 </div>
             </div>
@@ -255,7 +255,7 @@
                                     <div class="col-12 col-md-6 col-lg-6">
                                         <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
                                             <!-- Property Thumb -->
-                                            <div class="property-thumb">
+                                            <div class="property-thumb" style="height: 230px !important;">
                                                 <a href="room/{{$item->id}}/{{$item->slugs}}.html">
                                                         <img src="theme/img/bg-img/{{ $item->photo[0]['name'] }}" alt="">
                                                 </a>
@@ -268,14 +268,17 @@
                                                     <div class="property-title-seller d-flex justify-content-between">
                                                         <!-- Title -->
                                                         <div class="property-title">
-                                                            <h4>{{ $item->title }}</h4>
+                                                            <h4 style="white-space: nowrap;
+                                                              overflow: hidden;
+                                                              text-overflow: Ellipsis;
+                                                              max-width: 300px;">{{ $item->title }}</h4>
                                                             <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{$item->district->districtName}}, Hà Nội</p>
                                                         </div>
                                                         <!-- Seller -->
-                                                        <div class="property-seller">
+                                                       <!--  <div class="property-seller">
                                                             <p>Người đăng:</p>
                                                             <h6>{{$item->user->username}}</h6>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                     <!-- Property Info -->
                                                     <div class="property-info-area d-flex flex-wrap">

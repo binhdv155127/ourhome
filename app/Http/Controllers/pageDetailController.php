@@ -69,7 +69,6 @@ class pageDetailController extends Controller
         }
         $a = $price[0];
         $b = $price[1];
-
         if (!empty($request->area)) {
             $area = explode('-', $request->area);
         } else {

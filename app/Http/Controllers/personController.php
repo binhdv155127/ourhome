@@ -16,6 +16,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Mail;
 use App\Mail\Schedulemail;
+use Redirect;
+use Imagick;
 
 class personController extends Controller
 {
@@ -55,13 +57,17 @@ class personController extends Controller
 
         if(Auth::user()){
             $checkRoom = Rooms::where('id_user',Auth::user()->id)->get();
-            for ($i=0; $i < count($checkRoom) ; $i++) { 
-                $checkRateRoom = RoomUsed::where('id_user',$id)->where('id_room',$checkRoom[$i]->id)->get();
-            }  
+            if(count($checkRoom)>0){
+                for ($i=0; $i < count($checkRoom) ; $i++) { 
+                    $checkRateRoom = RoomUsed::where('id_user',$id)->where('id_room',$checkRoom[$i]->id)->get();
+                }
+            } else {
+                $checkRateRoom = [];
+            }
         }else{
             $checkRateRoom = [];
         }
-        
+
         if(count($checkRateRoom)>0){
             $checkRateRoom2 = rate_users::where('id_roomused',$checkRateRoom[0]->id)->get();
         }else{
@@ -89,13 +95,11 @@ class personController extends Controller
           'name' => 'required',
           'phonenumber' => 'required',
           'birthday' => 'required',
-          'avatar' => 'required',
           'content' => 'required'
         ],[
           'name.required' => 'Vui lòng nhập đầy đủ Họ Tên',
           'phonenumber.required' => 'Vui lòng nhập số điện thoại',
           'birthday.required' => 'Vui lòng nhập ngày sinh',
-          'avatar.required' => 'Vui lòng chọn ảnh làm avatar',
           'content.required' => 'Vui lòng nhập mô tả'
         ]);
           $user = User::find($id);
@@ -105,6 +109,14 @@ class personController extends Controller
           $user->gender = $request->gender;
           $user->address = $request->address;
           $user->content = $request->content;
+          if(!empty($request->avatar)){
+            // $user->avatar = $request->avatar;
+            $inputfile =  $request->file('avatar');
+            $namefile =  Str::random(5)."-".$inputfile->getClientOriginalName();
+            
+            $inputfile->move('theme/img/bg-img',$namefile);
+            $user->avatar = $namefile;
+          }
           $user->updt = 1;
           $user->updated_at = Carbon::now();
 
@@ -144,6 +156,8 @@ class personController extends Controller
         $maildetail['phone'] = Auth::user()->phonenumber;
         $maildetail['address1'] = Auth::user()->phonenumber;
         Mail::to($req->mail)->send(new Schedulemail($maildetail));
+
+        return Redirect::back()->with('thongbao','Bạn đã gửi lịch hẹn thành công');
     }
 
     public function login()

@@ -8,7 +8,7 @@
                         <table style="width:580px;border-bottom:1px solid #ff3333" cellpadding="0" cellspacing="0" border="0">
                             <tbody>
                                 <tr>
-                                    <div style="font-size: 40px;float: left;"> <text>Our</text><text style="color: #92c800;">Home</text></div><div style="margin-top: 16px;font-size: 24px;color: #0300c8;">Tìm phòng ở ghép</div>
+                                    <div style="font-size: 40px;float: left;"> <text>Our</text><text style="color: #92c800;">Home</text></div><div style="margin-top: 16px;font-size: 24px;color: #0300c8;"> Tìm phòng ở ghép</div>
                                 </tr>
                             </tbody>
                         </table>
@@ -69,17 +69,17 @@
                                 <tr>
                                     <td colspan="2" align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#666666;padding:10px 10px 7px 15px;line-height:17px"> 
                                         <b>Địa chỉ: </b> 
-                                        <b  style="color:#ed2324;font-weight:bold;text-decoration:none" target="_blank"> {{$maildetail['address1']}}
+                                        <b  style="color:#ed2324;font-weight:bold;text-decoration:none" target="_blank"> {{$maildetail['address']}}
                                         </b>
                                         
                                     </td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td colspan="2" align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#666666;padding:10px 10px 7px 15px;line-height:17px"> 
                                         <b>Nội dung: </b> 
                                         
                                     </td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td colspan="2" align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#666666;padding:10px 10px 7px 15px;line-height:17px"> 
                                         <b>Nội dung: </b> 
@@ -103,7 +103,7 @@
                                         <br> Nếu có bất kỳ thắc mắc hay cần giúp đỡ, Bạn vui lòng ghé thăm 
                                         <b style="font-family:Arial,Helvetica,sans-serif;font-size:13px;text-decoration:none;font-weight:bold">Trung tâm trợ giúp</b> của chúng tôi tại địa chỉ: 
                                         <a href="#" style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#0066cc;text-decoration:none;font-weight:bold" target="_blank">
-                                            help.sendo.vn
+                                            duongbinh@gmail.com
                                         </a>
                                     </td>
                                 </tr>

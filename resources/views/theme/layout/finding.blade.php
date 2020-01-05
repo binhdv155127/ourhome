@@ -33,7 +33,7 @@
                                     <option value="01">01</option>
                                     <option value="02">02</option>
                                     <option value="03">03</option>
-                                    <option value="04">04</option>
+                                    <option value="04">>= 4</option>
                                 </select>
                             </div>
                             <div class="col-12 col-md-6 col-lg-3">
@@ -42,7 +42,7 @@
                                     <option value="500000-1000000">500,000 - 1,000,000 VND</option>
                                     <option value="1000001-2000000">1,000,001 - 2,000,000 VND</option>
                                     <option value="2000001-3000000">2,000,001 - 3,000,000 VND</option>
-                                    <option value="3000001-4000000">3,000,001 - 4,000,000 VND</option>
+                                    <option value="3000001-9000000">Trên 3,000,000</option>
                                 </select>
                             </div>
                             <div class="col-12 col-md-6 col-lg-3">
@@ -51,7 +51,7 @@
                                     <option value="5-15">5 - 15 m2</option>
                                     <option value="16-25">16 - 25 m2</option>
                                     <option value="26-35">26 - 35 m2</option>
-                                    <option value="36-45">36 - 45 m2</option>
+                                    <option value="36-45">Trên 35 m2</option>
                                 </select>
                             </div>
                         </div>

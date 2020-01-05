@@ -46,7 +46,10 @@
                                                         </div>
                                                         <div class="content" style="margin-left: 260px;">
                                                             <a href="room/{{$detail->id}}/{{$detail->slugs}}.html">
-                                                                <h6>{{ $detail->title }}</h6>
+                                                                <h6 style="white-space: nowrap;
+                                                              overflow: hidden;
+                                                              text-overflow: Ellipsis;
+                                                              max-width: 550px;">{{ $detail->title }}</h6>
                                                             </a>
                                                             <P style="white-space: nowrap;
                                                               overflow: hidden;

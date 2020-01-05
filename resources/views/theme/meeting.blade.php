@@ -32,13 +32,18 @@
         padding-top: 20px;
         margin-bottom: 55px;
         padding-bottom: 20px;">
-        <div class="panel-heading" style="font-weight: bold;font-size: 23px;width: 760px;margin-left: -16px;background-color: #92c800;padding: 10px 0 6px 255px;margin-top: -20px;">
+        <div class="panel-heading" style="font-weight: bold;font-size: 23px;width: 760px;margin-left: -1px;background-color: #92c800;padding: 10px 0 6px 255px;margin-top: -20px;">
             <h4 style=" color: white;">Đặt lịch hẹn gặp</h4>
         </div>
             <div class="panel panel-default" style="margin-top: 25px;">
 
                     <div class="panel-body">
-
+                    @if(session('thongbao'))
+                    <div class="alert bg-success" style="color: white;">
+                        <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+                        <span class="text-semibold">Well done!</span>  {{session('thongbao')}}
+                    </div>
+                    @endif
                     <form action="user/meeting/{{$user->id}}" method="POST">
                         @csrf
                         <div>

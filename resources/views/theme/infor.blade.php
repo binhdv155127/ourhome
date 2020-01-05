@@ -182,12 +182,12 @@
                                                                         <div class="col-12 col-md-4 col-lg-4">
                                                                         <div class="single-agent-area wow fadeInUp" data-wow-delay="200ms">
                                                                             <!-- Agent Thumb -->
-                                                                            <div class="single-agent-thumb">
+                                                                            <div class="single-agent-thumb" style="height: 215px !important;">
                                                                                 <img src="theme/img/bg-img/{{$user->avatar}}" alt="">
                                                                             </div>
                                                                             <!-- Agent Info -->
                                                                             <div class="agent-info"style="background: #faebd747;">
-                                                                                <a href="#">{{ $user->name }}</a>
+                                                                                <a href="person/{{$user->id}}/{{$user->slugs}}.html">{{ $user->name }}</a>
                                                                                 <p><i class="fa fa-user-circle-o" aria-hidden="true"></i> Giới tính: @if($user->gender == 1) nam @else nữ @endif</p>
                                                                                 <p><i class="fa fa-address-book" aria-hidden="true"></i> Ngày sinh:{{ $user->birthday }} </p>
                                                                                 <p><i class="fa fa-skype" aria-hidden="true"></i>Địa Chỉ: {{ $user->address }}</p>
@@ -254,7 +254,7 @@
                                                     <div class="comment-content d-flex">
                                                         <!-- Comment Author -->
                                                         <div class="comment-author">
-                                                            <img src="{{ 'theme/img/bg-img/' . $getUserNames[$rate->id_user]['avatar'] . '.jpg' }}" alt="author">
+                                                            <img src="{{ 'theme/img/bg-img/'.$getUserNames[$rate->id_user]['avatar']}}" alt="author">
                                                         </div>
                                                         <!-- Comment Meta -->
                                                         <div class="comment-meta">
