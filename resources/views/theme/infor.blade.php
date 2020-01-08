@@ -35,12 +35,16 @@
                         <div class="information-content">
                             <ul class="d-flex flex-wrap" style="padding-top: 10px;
                             padding-bottom: 10px; border-bottom: 1px solid #80808075">
-                                <li><span>Họ và tên:</span> </li><li style=" margin-left: -60px;"><span>{{$person['0']['name']}}</span></li>
+                                <img src="theme/img/bg-img/{{$person['0']['avatar']}}" style="height: 140px;     border-radius: 70px;">
+                                <div style="margin-left: 20px;margin-top: 27px;">
+                                    <p><span>Họ và tên: </span><span>{{$person['0']['name']}}</span></p> <br>
+                                <p><span>Ngày sinh: </span><span>{{$person['0']['birthday']}}</span></p>
+                                </div>
                             </ul>
-                            <ul class="d-flex flex-wrap" style="padding-top: 10px;
+                            <!-- <ul class="d-flex flex-wrap" style="padding-top: 10px;
                             padding-bottom: 10px; border-bottom: 1px solid #80808075">
-                                <li><span>Địa chỉ</span> </li><li style=" margin-left: -60px;"><span>{{$person['0']['address']}}</span></li>
-                            </ul>
+                                
+                            </ul> -->
                             @if(Auth::user())
                             @if(Auth::user()->id == $person['0']['id'])
                             <ul class="d-flex flex-wrap" style="padding-top: 10px;
@@ -55,7 +59,7 @@
                             @endif
                             <ul class="d-flex flex-wrap" style="padding-top: 10px;
                             padding-bottom: 10px; border-bottom: 1px solid #80808075" >
-                                <li><span>Ngày sinh</span> </li><li style=" margin-left: -60px;"><span>{{$person['0']['birthday']}}</span></li>
+                                <li><span>Địa chỉ</span> </li><li style=" margin-left: -60px;"><span>{{$person['0']['address']}}</span></li>
                             </ul>
                             <ul class="d-flex flex-wrap" style="padding-top: 10px;
                             padding-bottom: 10px; border-bottom: 1px solid #80808075" >
