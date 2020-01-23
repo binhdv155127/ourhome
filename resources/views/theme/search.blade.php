@@ -31,7 +31,7 @@
                     <!-- Single Property Area -->
                     @foreach ($findRoom as $item)
                     <div class="col-12 col-md-6 col-lg-4">
-                            <a href="room/{{$item->id}}">
+                            <a href="room/{{$item->id}}/{{$item->slugs}}.html" >
                                 <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
                                     <!-- Property Thumb -->
                                     <div class="property-thumb" style="height: 230px !important;">

@@ -78,10 +78,11 @@ class pageDetailController extends Controller
         $d = $area[1];
 
         if (!empty($request->types) || !empty($request->district) || !empty($request->ward) || !empty($request->price) || !empty($request->area)) {
+            
             $findRoom = Rooms::where('id_roomtype', $request->types)
                 ->orWhere('id_district', $request->district)
                 ->orWhere('id_ward', $request->ward)
-                ->whereBetween('price', [$a, $b])->paginate(9);
+                ->orwhereBetween('price', [$a, $b])->paginate(9);
             //-> whereBetween('area',[$c,$d])
         } else {
             $findRoom = Rooms::paginate(9);

@@ -52,7 +52,7 @@
                         </div>
                         <div>
                             <label>Địa chỉ:</label>
-                            <input type="text" class="form-control" placeholder="Tiêu đề" name="address" value="">
+                            <input type="text" class="form-control" placeholder="Địa chỉ" name="address" value="">
                         </div>
                         <br>
                         <div>
